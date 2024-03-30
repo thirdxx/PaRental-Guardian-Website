@@ -879,6 +879,7 @@ input[type="radio"] {
   background-color: #d42020;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 .modal-button-confirm {
   padding: 10px;
@@ -886,4 +887,5 @@ input[type="radio"] {
   background-color: #0d830d;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
