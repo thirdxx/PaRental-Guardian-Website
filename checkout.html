@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>renta.com/checkout</title>
+    <link rel="stylesheet" href="css/checkout.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <body>
+    <header>
+      <div class="logo">
+        <span>renta.com</span>
+      </div>
+       <nav>
+        <ul>
+          <li><a href="homepage.html">Home</a></li>
+    <li class="dropdown">
+      <a href="product_categories.html">Products</a>
+      <div class="dropdown-content">
+        <div class="column">
+          <a href="/products/chairs.html"><i class="fas fa-chair" style="margin-right: 5px"></i> Chairs </a>
+          <a href="/products/tables.html"><i class="fas fa-square" style="margin-right: 5px"></i> Tables </a>
+            <a href="/products/cooking.html"><i class="fas fa-utensils" style="margin-right: 5px"></i> Cooking </a>
+        </div>
+        <div class="column">
+            <a href="/products/glassware.html"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware </a>
+           <a href="/products/furnitures.html"><i class="fas fa-solid fa-couch" style="margin-right: 5px"></i> Furnitures </a>
+           <a href="/products/linens.html"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
+        </div>
+        <div class="column">
+          <a href="/products/tenting.html"><i class="fas fa-campground" style="margin-right: 5px"></i> Tenting </a>
+          <a href="/products/lighting.html"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Lighting </a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="packages.html">Packages</a>
+      <div class="dropdown-content">
+        <div class="column">
+          <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 1 </a>
+          <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 2 </a>
+          <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 3 </a>
+        </div>
+        <div class="column">
+            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 4 </a>
+           <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 5 </a>
+           <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 6 </a>
+        </div>
+        <div class="column">
+          <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i>Package 7 </a>
+          <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i>Package 8 </a>
+        </div>
+      </div>
+    </li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      </div>
+      <div>
+        <a href="/cart.html" class="cart-button">
+  <i class="fas fa-shopping-cart"></i>
+    </a>
+        <a href="#" class="login-link">Sign in</a>
+      </div>
+  
+    </header>
+
+    <main>
+        <div class="banner">
+          <h2>Checkout</h2>
+          </div>
+  </div>
+</div>
+  <div class="card-container">
+  <div class="cardcheckout">
+    <h2>Billing Details</h2>
+    <form>
+        <div class="heading-textarea">
+            <h5 required>First Name<span class="required"></span></h5>
+            <textarea name="firstname" required></textarea>
+        </div>
+        <div class="heading-textarea">
+            <h5>Last Name<span class="required"></span></h5>
+            <textarea name="lastname" required></textarea>
+        </div>
+       <h5>Company Name (optional)</h5>
+      <textarea name="companyname" class="custom-width-textarea" ></textarea><br>
+     <div class="heading-textarea">
+            <h5 required>Country<span class="required"></span></h5>
+            <textarea name="firstname" required>Philippines</textarea>
+        </div>
+        <div class="heading-textarea">
+            <h5>Province<span class="required"></span></h5>
+            <textarea name="lastname" required>Albay</textarea>
+        </div>
+       <h5>Town/City<span class="required"></span></h5>
+      <textarea name="city" class="custom-width-textarea" required></textarea><br>
+       <h5>House Number/Street Name<span class="required"></span></h5>
+      <textarea name="address" class="custom-width-textarea" required></textarea><br>
+       <h5>Apartment, Suite, Unit, etc (Optional)</h5>
+      <textarea name="apartment"  class="custom-width-textarea"></textarea><br>
+       <h5>Zip Code <span class="required"></span></h5>
+      <textarea name="zipcode" class="custom-width-textarea" required></textarea><br>
+       <h5>Phone<span class="required"></span></h5>
+      <textarea name="phone" class="custom-width-textarea" required></textarea><br>
+       <h5>Email Address<span class="required"></span></h5>
+      <textarea name="email" class="custom-width-textarea" required></textarea><br>
+       <h5>Notes (optional)</h5>
+      <textarea name="additional_info" class="custom-width-notes"></textarea><br>
+       <h3>Rental Dates</h3>
+      <div class="date-inputs-container">
+  <div class="heading-textarea">
+    <h4>Rental Start Date (optional)<span ></span></h4>
+    <input type="date" name="rental_start_date" placeholder="Rental Start Date (Optional)">
+  </div>
+  <div class="heading-textarea">
+    <h4>Rental End Date (optional)<span ></span></h4>
+    <input type="date" name="rental_end_date" placeholder="Rental End Date (Optional)">
+  </div>
+</div>
+    </form>
+  </div>
+
+  <div class="cardcheckout2">
+    <h2>Your Order</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+           <td>Cubist Square Glassware<span class="quantity"> x1</span></td>
+          <td>₱150.00</td>
+        </tr>
+        <tr>
+          <td>Cubist Square Glassware<span class="quantity"> x1</span></td>
+          <td>₱100.00</td>
+        </tr>
+        <td class="subtotal">Subtotal</td>
+          <td class="subtotal">₱350.00</td>
+        </tr>
+        <td class="total">Total</td>
+          <td class="total">₱350.00</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="payment-method">
+      <h3>Payment Method</h3>
+     <div class="payment-methods-container">
+  <label><input type="radio" name="payment_method" value="credit_card"> Credit Card</label>
+  <label><input type="radio" name="payment_method" value="paypal"> PayPal</label>
+  <label><input type="radio" name="payment_method" value="paypal"> GCash</label>
+  <label><input type="radio" name="payment_method" value="bank_transfer"> Bank Transfer</label>
+  <label><input type="radio" name="payment_method" value="cash_on_delivery"> Cash on Delivery</label>
+</div>
+<a href="#" class="checkout-button" onclick="showConfirmationModal()">
+  <i class="checkout-btn">Place order</i>
+</a>
+
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <h2>Confirmation</h2>
+    <p>Are you sure you want to place the order?</p>
+    <button class="modal-button"onclick="closeConfirmationModal()">Cancel</button>
+    <button class="modal-button-confirm"onclick="showOrderConfirmedModal()">Confirm</button>
+  </div>
+</div>
+
+<div id="orderConfirmedModal" class="modal">
+  <div class="modal-content">
+    <h2>Order Confirmed</h2>
+    <p>Your order has been successfully confirmed.</p>
+    <button class="modal-button-confirm" onclick="closeOrderConfirmedModal()">Close</button>
+  </div>
+</div>
+
+<script>
+function showConfirmationModal() {
+  document.getElementById('confirmationModal').style.display = 'block';
+}
+
+function closeConfirmationModal() {
+  document.getElementById('confirmationModal').style.display = 'none';
+}
+
+function showOrderConfirmedModal() {
+  closeConfirmationModal(); 
+  document.getElementById('orderConfirmedModal').style.display = 'block'; 
+}
+
+function closeOrderConfirmedModal() {
+  document.getElementById('orderConfirmedModal').style.display = 'none';
+}
+</script>
+  </div>
+</div>
+
+      <!-- <div class="container">
+        <div class="banner">
+          <h2>Checkout</h2>
+          </div>
+          </div>
+          <div class="card">
+    <h2>Billing Details</h2>
+    <form>
+      <textarea name="firstname" placeholder="First Name"></textarea><br>
+      <textarea name="lastname" placeholder="Last Name"></textarea><br>
+      <textarea name="companyname" placeholder="Company Name (Optional)"></textarea><br>
+      <textarea name="country" placeholder="Country" disabled>Philippines</textarea><br>
+      <textarea name="region" placeholder="Region" disabled>Albay</textarea><br>
+      <textarea name="city" placeholder="Town/City"></textarea><br>
+      <textarea name="address" placeholder="House Number/Street Name"></textarea><br>
+      <textarea name="apartment" placeholder="Apartment, Suite, Unit, etc (Optional)"></textarea><br>
+      <textarea name="zipcode" placeholder="Zip Code"></textarea><br>
+      <textarea name="phone" placeholder="Phone Number"></textarea><br>
+      <textarea name="email" placeholder="Email Address"></textarea><br>
+      <input type="date" name="rental_start_date" placeholder="Rental Start Date (Optional)"><br>
+      <input type="date" name="rental_end_date" placeholder="Rental End Date (Optional)"><br>
+      <textarea name="additional_info" placeholder="Additional Information"></textarea><br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+
+  <div class="card">
+    <h2>Your Order</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>Product 1</td>
+          <td>$10.00</td>
+        </tr>
+        <tr>
+          <td>Product 2</td>
+          <td>$15.00</td>
+        </tr>
+
+      </tbody>
+    </table>
+    <div class="payment-method">
+      <h3>Payment Method</h3>
+      <label><input type="radio" name="payment_method" value="credit_card"> Credit Card</label><br>
+      <label><input type="radio" name="payment_method" value="paypal"> PayPal</label><br>
+      <label><input type="radio" name="payment_method" value="bank_transfer"> Bank Transfer</label><br>
+
+    </div>
+    <p>Details about payment options and additional notes.</p>
+  </div> -->
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="container">
+        <div class="contact-info">
+  <div class="column">
+    <h2 class="contact">Contact</h2>
+    <p>Barangay 1, Em’s Barrio, Legazpi City, Albay, Philippines, 4500</p>
+    <p>parentalguardians@gmail.com</p>
+    <p>+639273298367</p>
+    <!-- <p>&copy; 2023 Party Rentals. All Rights Reserved.</p> -->
+     <a href="facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+  <a href="instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
+  <a href="pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a>
+  </div>
+  <div class="column">
+    <h2 class="business-hours">Business Hours</h2>
+    <p class="business-hours">Monday-Friday: 9:00 AM - 5:00 PM</p>
+<p class="business-hours">Saturday: 1:00 PM - 5:00 PM</p>
+<p class="business-hours">Sunday: Closed</p>
+ <p class="copyright">&copy; 2024 PaRental Guardians. All Rights Reserved.</p>
+  </div>
+  <div class="column">
+    <h2 class="links">Links</h2>
+    <p class="links" href="#">Home</p>
+    <p class="links" href="#">Products</p>
+    <p class="links" href="#">Pacakges</p>
+    <p class="links" href="#">About</p>
+    <p class="links" href="#">Contact</p>
+  </div>
+</div>
+<div class="banner-footer">
+  <!-- <a href="facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+  <a href="instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
+  <a href="pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a> -->
+  </div>
+  </div>
+    </footer>
+  </body>
+</html>
