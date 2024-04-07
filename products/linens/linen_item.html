@@ -24,15 +24,15 @@
         <div class="column">
           <a href="../chairs.html"><i class="fas fa-chair" style="margin-right: 5px"></i> Chairs </a>
           <a href="../tables.html"><i class="fas fa-square" style="margin-right: 5px"></i> Tables </a>
-            <a href="../cooking.html"><i class="fas fa-utensils" style="margin-right: 5px"></i> Cooking </a>
+            <a href="../serving.html"><i class="fas fa-circle" style="margin-right: 5px"></i> Serving </a>
         </div>
         <div class="column">
             <a href="../glassware.html"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware </a>
-           <a href="../furnitures.html"><i class="fas fa-solid fa-couch" style="margin-right: 5px"></i> Furnitures </a>
+           <a href="../flatware.html"><i class="fas fa-utensils" style="margin-right: 5px"></i> Flatware </a>
            <a href="../linens.html"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
         </div>
         <div class="column">
-          <a href="../tenting.html"><i class="fas fa-campground" style="margin-right: 5px"></i> Tenting </a>
+          <a href="../tent.html"><i class="fas fa-campground" style="margin-right: 5px"></i> Tent </a>
           <a href="../lighting.html"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Lighting </a>
         </div>
       </div>
@@ -71,7 +71,7 @@
     </header>
 
     <main>
-  <script src="../../js/quantity.js"></script>
+  <script src="../../js/totalprice.js"></script>
       <div class="search-container">
   <div class="search-bar">
     <input type="text" placeholder="Search products and packages..." />
@@ -95,26 +95,41 @@
         <button class="addtocart" href="#">Add to cart <i class="fas fa-arrow-right"></i></button>
       </div> -->
   
-        </div>
-        <div class="cardproduct">
-  <div class="image-column">
-    <a href="#"><img class="card-img" src="/images/chair.jpg" alt="Chairs"></a>
-  </div>
-  <div class="details-column">
-    <h2>Billie’s Roses Golden Rose</h2>
-    <h4>Price: ₱0.00</h4>
-    <div class="quantity">
-      <button class="minus" onclick="decrementQuantity(this.parentNode.querySelector('.textarea'))">-</button>
-<input class="textarea" type="number" value="1" min="1">
-<button class="plus" onclick="incrementQuantity(this.parentNode.querySelector('.textarea'))">+</button>
-
-    </div>
-     <button class="addtocart" href="#">Add to cart <i class="fas fa-arrow-right"></i></button>
-    <p>SKU: 1345</p>
-  </div>
-</div>
-
-      </div>
+      <div class="cardproduct">
+		 <div class="image-column">
+			<a href="#"><img class="card-img" src="../../images/purplelinen.jpg" alt="Chairs"></a>
+		  </div>
+		  <div class="details-column">
+			<h2>Table Linen</h2>
+			<h4 class="product-price" data-price="50.00">Price: ₱50.00</h4>
+			<h5>Per week</h5><br>
+			<h5>Description</h5>
+			<p>Color: Purple</p>
+			<p>Material: Polyester Cotton</p>
+			<p>Dimension: W152*D305 cm</p><br>
+			
+			<p>SKU: 6000</p>
+		  </div>
+		<div class="rental">
+			<h5>Minimum Rental Duration: 1 week</h5>
+			<div class="rental-section">
+			  <label for="rent-from">Rent from:</label>
+			  <input type="date" id="rent-from" name="rent-from" onchange="calculatePrice()">
+			</div>
+			<div class="rental-section">
+			  <label for="rent-to">Rent to:</label>
+			  <input type="date" id="rent-to" name="rent-to" onchange="calculatePrice()">
+			</div>
+			<div class="quantity">
+			  <button class="minus" onclick="decrementQuantity()">-</button>
+			  <input id="quantity" type="number" value="1" min="1" onchange="calculatePrice()">
+			  <button class="plus" onclick="incrementQuantity()">+</button>
+			</div>
+			<h4 id="total-price">Total Price: ₱50.00</h4> <!-- Initial price displayed here -->
+			<button class="addtocart" onclick="addToCart()">Add to cart <i class="fas fa-arrow-right"></i></button>
+		</div>
+	</div>
+	  
     </main>
     <footer>
       <div class="container">

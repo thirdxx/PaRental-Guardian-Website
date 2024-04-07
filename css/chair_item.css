@@ -207,15 +207,17 @@ header {
   border-radius: 4px;
 } */
 .addtocart {
-  border-radius: 20px;
+  border-radius: 5px;
   display: inline-block;
   background-color: #469131;
   color: #fff;
-  margin-top: 15px;
-  padding: 10px 25px;
+  margin-top: 0;
+  padding: 10px 53px;
   border: none;
   cursor: pointer;
   font-size: 15px;
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 .addtocart:hover {
@@ -515,9 +517,9 @@ footer p {
   overflow: hidden;
   justify-content: space-between;
   margin-bottom: 20px;
-  margin-left: 250px;
+  margin-left: 100px;
   margin-top: -20px;
-  width: 850px;
+  width: 1300px;
 }
 .cardproduct h2 {
   font-size: 30px;
@@ -549,20 +551,60 @@ footer p {
   flex: 2;
   padding: 20px;
 }
+ 
+.details-column p, 
+.details-column h4,
+.details-column h5 {
+  margin: 0; 
+  padding: 0;
+}
+
+.rental {
+  background-color: #f7f7f7;
+  border: 1px;
+  border-style: solid;
+  border-color: #d3d3d3;
+  border-radius: 5px;
+  width: 350px;
+  padding: 10px;
+  margin: 30px;
+}
+
+.rental h5,
+.rental h4,
+.rental label {
+  margin-left: 15px; 
+}
 
 .quantity {
-  margin-top: -10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 15px;
+}
+
+.quantity input {
+  text-align: center;
 }
 
 .quantity button {
   background-color: #f0f0f0;
   font-size: 20px;
   border: none;
+  border-radius: 5px;
   font-weight: 200;
   padding: 5px 10px;
   cursor: pointer;
+  margin-bottom: 30px;
 }
+
+input[type="number"] {
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    width: 130px; 
+    box-sizing: border-box; 
+}
+
 .textarea {
   height: 30px;
   width: 70px;
@@ -570,3 +612,31 @@ footer p {
   border-radius: 5px;
   border: 0.5px solid #525050;
 }
+
+.rental-section {
+  margin-bottom: 20px; 
+}
+
+label {
+  display: block; 
+  margin-bottom: 5px; 
+
+}
+input[type="date"] {
+  padding: 8px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  width: 200px; /* Set width */
+  box-sizing: border-box;
+  margin-left: 15px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: transparent; 
+    width: 20px;
+    height: 20px; 
+    cursor: pointer; 
+    padding: 0; 
+    margin-left: -20px; 
+}
+
