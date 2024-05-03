@@ -180,7 +180,8 @@
   <div class="modal-content">
     <h2>Order Confirmed</h2>
     <p>Your order has been successfully confirmed.</p>
-    <button class="modal-button-confirm" onclick="closeOrderConfirmedModal()">Close</button>
+        <button class="modal-button" onclick="closeOrderConfirmedModal()">Close</button>
+    <button class="modal-button-confirm" onclick="downloadPDF()">Print Invoice</button>
   </div>
 </div>
 
@@ -201,6 +202,18 @@ function showOrderConfirmedModal() {
 function closeOrderConfirmedModal() {
   document.getElementById('orderConfirmedModal').style.display = 'none';
 }
+function downloadPDF() {
+  var pdfUrl = 'receipt.pdf';
+  var anchor = document.createElement('a');
+
+  anchor.href = pdfUrl;
+  
+  anchor.download = 'official_receipt.pdf';
+  
+  anchor.click();
+}
+
+
 </script>
   </div>
 </div>
