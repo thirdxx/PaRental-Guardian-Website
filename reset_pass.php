@@ -4,7 +4,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "parental"; 
+$dbname = "parental";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -18,27 +18,22 @@ $success_message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
-    
 
     if ($new_password !== $confirm_password) {
         $error_message = "Passwords did not match.";
     } else {
- 
         if (!preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/', $new_password)) {
             $error_message = "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.";
         } else {
-
-            $hashedPassword = password_hash($new_password, PASSWORD_DEFAULT);
-
-            if(isset($_SESSION['email_phone'])){
+            if (isset($_SESSION['email_phone'])) {
                 $email_phone = $_SESSION['email_phone'];
+                $hashedPassword = password_hash($new_password, PASSWORD_DEFAULT);
                 $sql = "UPDATE users SET password = ? WHERE email = ? OR phone = ?";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("sss", $hashedPassword, $email_phone, $email_phone);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
-
                     $success_message = "Password reset successfully. Please sign in with your new password.";
                     header("Location: signin.php");
                     exit();

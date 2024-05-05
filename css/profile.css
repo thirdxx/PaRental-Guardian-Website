@@ -518,6 +518,25 @@ footer p {
   color: rgb(249, 255, 248);
   background-color: #157a24;
 }
+.logoutbutton {
+  font-size: 18px;
+  color: #eff8f1;
+  cursor: pointer;
+  background-color: #d63333;
+  padding: 10px 70px;
+  border-radius: 10px;
+  margin-left: 40px;
+  gap: 20px;
+}
+.logoutbutton i {
+  margin-right: 10px;
+  color: rgb(245, 255, 245);
+}
+
+.logoutbutton:hover {
+  color: rgb(249, 255, 248);
+  background-color: #d11313;
+}
 .upload-button {
   /* display: inline-block; */
   height: 20px;

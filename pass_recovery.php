@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-
+      $_SESSION['email_phone'] = $email_phone;
         header("Location: reset_pass.php");
         exit();
     } else {

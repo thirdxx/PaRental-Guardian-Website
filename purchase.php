@@ -88,7 +88,8 @@
   <label class="avatarname">Diogenes Tayam</label>
   <br>
   <a class="accountbutton" href="user_profile.php"><i class="fas fa-solid fa-user" ></i> My Account</a><br><br>
- <a class="purchasebutton" href="purchase.php"><i class="fas fa-solid fas fa-clipboard-list"></i> My Purchase</a>
+ <a class="purchasebutton" href="purchase.php"><i class="fas fa-solid fas fa-clipboard-list"></i> My Purchase</a><br><br><br><br><br><br><br><br><br><br><br><br>
+  <a class="logoutbutton" href="signin.php"><i class="fas fa-solid fas fa-clipboard-list"></i> Logout</a>
 </div>
 
 
