@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>renta.com/packages/funeral item name</title>
+    <link rel="stylesheet" href="../css/chair_item.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <span>renta.com</span>
+      </div>
+       <nav>
+        <ul>
+          <li><a href="../homepage.html">Home</a></li>
+    <li class="dropdown">
+      <a href="../product_categories.html">Products</a>
+      <div class="dropdown-content">
+        <div class="column">
+          <a href="../products/chairs.html"><i class="fas fa-chair" style="margin-right: 5px"></i> Chairs </a>
+          <a href="../products/tables.html"><i class="fas fa-square" style="margin-right: 5px"></i> Tables </a>
+            <a href="../products/serving.html"><i class="fas fa-circle" style="margin-right: 5px"></i> Serving </a>
+        </div>
+        <div class="column">
+            <a href="../products/glassware.html"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware </a>
+           <a href="../products/flatware.html"><i class="fas fa-utensils" style="margin-right: 5px"></i> Flatware </a>
+           <a href="../products/linens.html"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
+        </div>
+        <div class="column">
+          <a href="../products/tent.html"><i class="fas fa-campground" style="margin-right: 5px"></i> Tent </a>
+          <a href="../products/lighting.html"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Lighting </a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="../packages.html">Packages</a>
+      <div class="dropdown-content">
+        <div class="column">
+          <a href="../packages/wedding_item.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Wedding </a>
+          <a href="../packages/birthday_item.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Birthday </a>
+          <a href="../packages/funeral_item.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Funeral </a>
+        </div>
+        <div class="column">
+            <a href="../packages/fiesta_item.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Fiesta </a>
+           <a href="../packages/corporate_item.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Corporate Events </a>
+        </div>
+      </div>
+    </li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      </div>
+      <div>
+        <a href="/cart.html" class="cart-button">
+  <i class="fas fa-shopping-cart"></i>
+    </a>
+        <!-- <button type="button" class="cart-button">
+          <i href="/cart.html" class="fas fa-shopping-cart"></i>
+        </button> -->
+        <a href="#" class="login-link">Sign in</a>
+      </div>
+  
+    </header>
+
+    <main>
+  <script src="../js/totalprice.js"></script>
+      <div class="search-container">
+  <div class="search-bar">
+    <input type="text" placeholder="Search products and packages..." />
+    <button type="button" class="search-button">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</div>
+<script src="../js/addtocart.js"></script>
+      <div class="container">
+        <div class="banner">
+          <h2>Package</h2>
+          </div>
+  </div>
+</div>
+          <!-- <div class="cards">
+      <div class="card">
+        <a href="#"><img class = card-img src="/images/napachair.jpg" alt="Chairs"></a>
+        <h3>Chair Name</h3>
+         <p>₱0.00</p>
+        <button class="addtocart" href="#">Add to cart <i class="fas fa-arrow-right"></i></button>
+      </div> -->
+       
+      <div class="cardproduct">
+		 <div class="image-column">
+			<a href="#"><img class="card-img" src="../images/funeral.jpg" alt="Funeral"></a>
+		  </div>
+		  <div class="details-column">
+			<h2>Funeral Package</h2>
+			<h4 class="product-price" data-price="3000.00">Price: ₱3500</h4>
+			<h5>Per week</h5><br>
+			<h5>Description</h5>
+			<p>30 Monobloc Chairs</p>
+			<p>2  Long Tables</p>
+			<p>2  Canopy Tents</p><br>
+			
+			<p>SKU: 9003</p>
+		  </div>
+		<div class="rental">
+			<h5>Minimum Rental Duration: 1 week</h5>
+			<div class="rental-section">
+			  <label for="rent-from">Rent from:</label>
+			  <input type="date" id="rent-from" name="rent-from" onchange="calculatePrice()">
+			</div>
+			<div class="rental-section">
+			  <label for="rent-to">Rent to:</label>
+			  <input type="date" id="rent-to" name="rent-to" onchange="calculatePrice()">
+			</div>
+			<div class="quantity">
+			  <button class="minus" onclick="decrementQuantity()">-</button>
+			  <input id="quantity" type="number" value="1" min="1" onchange="calculatePrice()">
+			  <button class="plus" onclick="incrementQuantity()">+</button>
+			</div>
+			<h4 id="total-price">Total Price: ₱3500.00</h4> <!-- Initial price displayed here -->
+			<button class="addtocart" onclick="addToCart(this)">Add to cart <i class="fas fa-arrow-right"></i></button>
+		</div>
+	</div>
+
+    </main>
+    <footer>
+      <div class="container">
+        <div class="contact-info">
+  <div class="column">
+    <h2 class="contact">Contact</h2>
+    <p>Barangay 1, Em’s Barrio, Legazpi City, Albay, Philippines, 4500</p>
+    <p>parentalguardians@gmail.com</p>
+    <p>+639273298367</p>
+    <!-- <p>&copy; 2023 Party Rentals. All Rights Reserved.</p> -->
+     <a href="facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+  <a href="instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
+  <a href="pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a>
+  </div>
+  <div class="column">
+    <h2 class="business-hours">Business Hours</h2>
+    <p class="business-hours">Monday-Friday: 9:00 AM - 5:00 PM</p>
+<p class="business-hours">Saturday: 1:00 PM - 5:00 PM</p>
+<p class="business-hours">Sunday: Closed</p>
+ <p class="copyright">&copy; 2024 PaRental Guardians. All Rights Reserved.</p>
+  </div>
+  <div class="column">
+    <h2 class="links">Links</h2>
+    <p class="links" href="#">Home</p>
+    <p class="links" href="#">Products</p>
+    <p class="links" href="#">Pacakges</p>
+    <p class="links" href="#">About</p>
+    <p class="links" href="#">Contact</p>
+  </div>
+</div>
+<div class="banner-footer">
+  <!-- <a href="facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+  <a href="instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
+  <a href="pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a> -->
+  </div>
+  </div>
+    </footer>
+  </body>
+</html>
