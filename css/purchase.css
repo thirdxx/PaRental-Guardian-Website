@@ -106,15 +106,6 @@ header {
   color: #4e4d4d;
   margin-left: 20px;
 }
-.user-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  margin-left: -40px;
-  font-size: 20px;
-  color: #4e4d4d;
-  /* margin-left: 20px; */
-}
 /* .cart-button {
   background-color: #f44336;
   color: #fff;
@@ -271,6 +262,7 @@ img {
 
 /* container styles */
 .container {
+  display: flex;
   max-width: 100%;
   /* margin: 0 auto; */
   padding: 20px;
@@ -349,7 +341,7 @@ main {
   font-size: 50px;
   text-align: center;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: -20px;
 }
 
 .banner p {
@@ -358,6 +350,7 @@ main {
   margin-right: 200px;
   text-align: center;
   line-height: 1.8;
+  margin-top: -50px;
 }
 
 .buttons {
@@ -440,33 +433,431 @@ footer p {
   /* margin-left: 100px; */
 }
 
-/* .dropbtn-custom {
-  background-color: transparent;
+.contact-form {
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */
+  grid-gap: 20px;
+  width: 800px;
+  height: 580px;
+  margin: auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.userprofile {
+  width: 300px;
+  height: 580px;
+  margin: auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+}
+
+.avatar {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #d1d1d1;
+  overflow: hidden;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avatarname {
+  display: flex;
+  font-size: 30px;
+  top: 50%;
+  text-align: center;
+  justify-content: center;
+  color: #525050;
+}
+.accountbutton {
+  font-size: 18px;
+  color: #131212;
+  cursor: pointer;
+  background-color: #f4faf5;
+  padding: 10px 48px;
+  border-radius: 10px;
+  margin-left: 40px;
+  gap: 20px;
+}
+.accountbutton i {
+  margin-right: 10px;
+  color: rgb(11, 105, 11);
+}
+
+.accountbutton:hover {
+  color: rgb(3, 41, 3);
+  background-color: #e4fae7;
+}
+.purchasebutton {
+  font-size: 18px;
+  color: #eff8f1;
+  cursor: pointer;
+  background-color: #157a24;
+  padding: 10px 45px;
+  border-radius: 10px;
+  margin-left: 40px;
+  gap: 20px;
+}
+.purchasebutton i {
+  margin-right: 10px;
+  color: rgb(245, 255, 245);
+}
+
+.purchasebutton:hover {
+  color: rgb(249, 255, 248);
+  background-color: #157a24;
+}
+.againbutton {
+    display: flex;
+  font-size: 15px;
+  color: #067e20;
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+
+  /* background-color: #157a24; */
+  /* padding: 10px;
+  border-radius: 10px; */
+  /* margin-left: 40px; */
+  /* gap: 20px;  */
+}
+
+.logoutbutton {
+  font-size: 18px;
+  color: #eff8f1;
+  cursor: pointer;
+  background-color: #d63333;
+  padding: 10px 70px;
+  border-radius: 10px;
+  margin-left: 40px;
+  gap: 20px;
+}
+.logoutbutton i {
+  margin-right: 10px;
+  color: rgb(245, 255, 245);
+}
+
+.logoutbutton:hover {
+  color: rgb(249, 255, 248);
+  background-color: #d11313;
+}
+
+.upload-button {
+  /* display: inline-block; */
+  height: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+  background-color: #0056b3;
+}
+
+/* Hide input[type=file] */
+input[type="file"] {
+  display: none;
+}
+
+.userprofile .upload-button {
+  margin-top: 10px; /* Adjust as needed */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.userprofile .upload-button:hover {
+  background-color: #0056b3; /* Hover background color */
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+.bold-label label {
+  font-weight: 700px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.button-group {
+  grid-column: span 2;
+  text-align: left;
+}
+.button-group button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.submit {
+  background-color: #007bff;
+  margin-top: 20px;
+}
+.submit:hover {
+  background-color: #0056b3;
+}
+.reset {
+  background-color: #dc3545;
+}
+.reset:hover {
+  background-color: #bd2130; /* Darker red on hover */
+}
+.radio-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.radio-container input[type="radio"] {
+  margin-right: 10px;
+  margin-left: 30px;
+  /* margin-top: 20px; */
+}
+
+.radio-container label {
+  display: flex;
+  align-items: left;
+  margin-top: 20px;
+}
+.calendar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  margin-top: 20px;
+}
+
+.date-picker {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dropdownprofile {
+  margin-right: 10px;
+  position: relative;
+}
+
+.dropbtn {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 10px;
+  width: 100px;
+  font-size: 16px;
   border: none;
   cursor: pointer;
 }
 
-.dropdown-content-custom {
+.dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
+  max-height: 200px; /* Set maximum height for scrollable content */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.dropdown-content-custom a {
+.dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
-.dropdown-content-custom a:hover {background-color: #f1f1f1;}
-.dropdown:hover .dropdown-content-custom {display: block;}
 
-.dropdown-content-custom {
-  right: 0;
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
 }
-.fa-user{
+
+.show {
+  display: block;
+}
+.fa-caret-down {
+  font-size: 24px;
+  margin-left: 10px;
+}
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+}
+.table-container img {
+  width: 50px;
+  border-radius: 5px;
+}
+.delete-button {
+  color: rgb(228, 47, 47);
   font-size: 20px;
+  margin-left: -40px;
+  margin-left: 20px;
+}
+.delete-button:hover {
+  color: rgb(212, 9, 9);
+}
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table td:nth-child(3) {
+  width: 350px; 
+}
+.subtotal {
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: -15px;
+}
+.total {
+  font-size: 20px;
+  font-weight: bold;
+}
+.carttotal {
+  padding: 10px;
+  margin-top: -10px;
+  margin-bottom: 0;
+}
+
+table th,
+table td {
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+table td .modal-button-confirm{
+    width: 100px;
+}
+table td .total{
+    font-weight: bold;
+}
+
+/* Quantity Button */
+/* .quantity button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 } */
+.quantity button {
+  background-color: #f0f0f0;
+  font-size: 20px;
+  border: none;
+  font-weight: 200;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.textarea {
+  height: 30px;
+  width: 50px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0.5px solid #525050;
+}
+/* Subtotal and Total Container */
+.subtotal-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+/* Checkout Button */
+.checkout-button {
+  text-align: center;
+  padding: 10px;
+}
+
+.checkout-btn {
+  border-radius: 20px;
+  display: inline-block;
+  background-color: #469131;
+  color: #fff;
+  margin-top: 15px;
+  font-style: normal;
+  font-weight: 500;
+  padding: 8px 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+/* Optional: Add hover effect to checkout button */
+.checkout-btn:hover {
+  background-color: #095319;
+}
+
+/* .container {
+  width: 600px;
+  margin: 50px auto;
+  border: 1px solid #ddd;
+  padding: 20px;
+} */
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cart-summary {
+  width: 50%;
+  float: left;
+}
+
+.cart-totals {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.modal-button-confirm {
+  padding: 10px;
+  color: white;
+  background-color: #0d830d;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

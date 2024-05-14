@@ -5,9 +5,27 @@ function calculatePrice() {
     var basePrice = parseFloat(document.querySelector('.product-price').getAttribute('data-price'));
     var weeks = Math.ceil(days / 7); // Calculate number of weeks
     var quantity = parseInt(document.getElementById("quantity").value);
-    var totalPrice = basePrice * weeks * quantity;
+    
+    console.log("Rent from:", rentFrom);
+    console.log("Rent to:", rentTo);
+    console.log("Days:", days);
+    console.log("Base price:", basePrice);
+    console.log("Weeks:", weeks);
+    console.log("Quantity:", quantity);
 
-    document.getElementById("total-price").innerText = "Total Price: ₱" + totalPrice.toFixed(2);
+    if(isNaN(weeks)){
+      var totalPrice = basePrice * quantity;
+      console.log("total:", totalPrice);
+      document.getElementById("total-price").innerText = "₱" + totalPrice.toFixed(2);
+      document.getElementById("total-price-display").value = totalPrice.toFixed(2);
+    } else {
+      var totalPrice = basePrice * weeks * quantity;
+      console.log("total:", totalPrice);
+      document.getElementById("total-price").innerText = "₱" + totalPrice.toFixed(2);
+      document.getElementById("total-price-display").value = totalPrice.toFixed(2);
+      document.querySelector('.addtocart').setAttribute('onclick', 'addToCart(this)');
+    }
+    
   }
 
   function decrementQuantity() {
@@ -28,3 +46,21 @@ function calculatePrice() {
     // Implement add to cart functionality here
     alert("Added to cart!");
   }
+
+  function disablePastDates() {
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('rent-from').setAttribute('min', today);
+    document.getElementById('rent-to').setAttribute('min', today);
+    
+    var rentFromDate = document.getElementById('rent-from').value;
+    var rentToDateInput = document.getElementById('rent-to');
+    var rentToDate = new Date(rentFromDate);
+    rentToDate.setDate(rentToDate.getDate() + 1);
+    var minDate = rentToDate.toISOString().split('T')[0];
+    rentToDateInput.setAttribute('min', minDate);
+  }
+
+  window.onload = function() {
+      disablePastDates();
+  };
+

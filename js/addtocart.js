@@ -9,4 +9,21 @@ function addToCart(button) {
     button.innerHTML = "Added to cart <i class='fas fa-check'></i>";
     button.classList.add("added-to-cart");
   }
+  // Implement add to cart functionality here
+  alert("Added to cart!");
+    // Get the cart count element
+  var cartCountElement = document.getElementById('cartCount');
+  
+  // Increment the cart count by 1
+  var cartCount = parseInt(cartCountElement.innerText);
+  cartCountElement.innerText = cartCount + 1;
 }
+
+// function addToCart(button) {
+//   // Get the cart count element
+//   var cartCountElement = document.getElementById('cartCount');
+  
+//   // Increment the cart count by 1
+//   var cartCount = parseInt(cartCountElement.innerText);
+//   cartCountElement.innerText = cartCount + 1;
+// }
