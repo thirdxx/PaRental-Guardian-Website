@@ -6,7 +6,8 @@ session_unset();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>renta.com</title>
+    <title>PaRENTAL</title>
+    <link rel="shortcut icon" type="x-icon" href="../images/logo.png">
     <link rel="stylesheet" href="css/homepage.css" />
     <link
       rel="stylesheet"

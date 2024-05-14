@@ -34,7 +34,7 @@ echo "<script>console.log('Cart count: " . $cart_count . "');</script>";
 
 <header>
     <div class="logo">
-        <span>renta.com</span>
+        <span>PaRENTAL</span>
     </div>
     <div>
         <nav>

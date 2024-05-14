@@ -51,7 +51,7 @@ if (isset($_SESSION['id'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>renta.com/purchase</title>
+    <title>Purchase</title>
     <link rel="stylesheet" href="../css/purchase.css" />
     <link
       rel="stylesheet"
