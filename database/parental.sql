@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2024 at 05:27 AM
+-- Generation Time: May 14, 2024 at 02:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,7 +44,10 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `start_date`, `end_date`, `subtotal`) VALUES
 (31, 1, 4, 2, '2024-05-12', '2024-05-31', 2100.00),
 (32, 1, 3, 4, '2024-05-13', '2024-05-20', 80.00),
-(36, 2, 3, 1, '2024-05-15', '2024-05-24', 40.00);
+(36, 2, 3, 1, '2024-05-15', '2024-05-24', 40.00),
+(37, 2, 2, 1, '2024-05-14', '2024-05-21', 300.00),
+(38, 2, 1, 1, '2024-05-15', '2024-05-22', 45.00),
+(39, 2, 3, 1, '2024-05-15', '2024-05-23', 40.00);
 
 -- --------------------------------------------------------
 
@@ -97,10 +100,6 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `date`, `address`, `payment`, `price`, `name`, `note`, `phone`, `email`) VALUES
-(1, NULL, '2024-05-14 00:00:00', 'A, aa, aaa, 4511', 'credit_card', 40.00, 'Maureen Benitez', '', '09123456789', 'maureenasirit.benitez@bicol-u.edu.ph'),
-(2, 2, '2024-05-14 00:00:00', 'Tabaco, Panal, Zone 3, 4511', 'cash_on_delivery', 120.00, 'Maureen Benitez', '', '09123456789', 'maureenasirit.benitez@bicol-u.edu.ph'),
-(3, 2, '2024-05-14 00:00:00', 'Tabaco, Panal, P-3, 4511', 'GCash', 1640.00, 'Maureen Benitez', '', '09123456789', 'maureenasirit.benitez@bicol-u.edu.ph'),
-(4, 2, '2024-05-14 09:38:21', 'Tabaco, Panal, Purok-3, 4511', 'Cash On Delivery', 45.00, 'Maureen Benitez', '', '09123456789', 'maureenasirit.benitez@bicol-u.edu.ph'),
 (5, 2, '2024-05-14 10:32:02', 'Tabaco, Panal, Purok 3, 4511', 'Cash On Delivery', 425.60, 'Maureen Benitez', '', '09123456789', 'maureenasirit.benitez@bicol-u.edu.ph');
 
 -- --------------------------------------------------------
@@ -124,11 +123,6 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `quantity`, `start_date`, `end_date`, `status`) VALUES
-(1, 2, 3, 3, '2024-05-15', '2024-05-23', NULL),
-(2, 3, 2, 1, '2024-05-14', '2024-05-16', NULL),
-(3, 3, 1, 2, '2024-05-14', '2024-05-22', NULL),
-(4, 3, 3, 1, '2024-05-15', '2024-05-23', NULL),
-(5, 4, 1, 1, '2024-05-14', '2024-05-22', NULL),
 (6, 5, 2, 1, '2024-05-14', '2024-05-16', 'Processing'),
 (7, 5, 3, 2, '2024-05-15', '2024-05-23', 'Processing');
 
@@ -173,17 +167,20 @@ CREATE TABLE `users` (
   `address` varchar(255) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
-  `image` varchar(100) DEFAULT NULL,
-  `username` varchar(100) DEFAULT NULL
+  `image` varchar(100) DEFAULT 'profile.jpg',
+  `username` varchar(100) DEFAULT NULL,
+  `gender` varchar(50) DEFAULT NULL,
+  `birthday` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `full_name`, `phone_number`, `address`, `email`, `password`, `image`, `username`) VALUES
-(1, 'alvan', '09111111111', NULL, 'admin@gmail.com', '$2y$10$DQiIhDYvXrcXcBmxazot9usoDwK9cIhB4c3RtmncS.glNvrH9v1nK', NULL, NULL),
-(2, 'Maureen Benitez', '09123456789', 'Matagbac, Tabaco City', 'maureenasirit.benitez@bicol-u.edu.ph', '$2y$10$0k5ZaAZotog.FKdL15En9OeO2JQFlolEo5v4Gu6GeqBqemlTUjYoC', 'maureen.png', '@maureen31');
+INSERT INTO `users` (`id`, `full_name`, `phone_number`, `address`, `email`, `password`, `image`, `username`, `gender`, `birthday`) VALUES
+(1, 'alvan', '09111111111', NULL, 'admin@gmail.com', '$2y$10$DQiIhDYvXrcXcBmxazot9usoDwK9cIhB4c3RtmncS.glNvrH9v1nK', 'profile.jpg', NULL, '', NULL),
+(2, 'Maureen Benitez', '09123456789', 'Matagbac, Tabaco City', 'maureenasirit.benitez@bicol-u.edu.ph', '$2y$10$0k5ZaAZotog.FKdL15En9OeO2JQFlolEo5v4Gu6GeqBqemlTUjYoC', 'maureen.png', '@maureen30', 'Other', '2002-05-30'),
+(3, 'Joshua Vergara', '09354375689', NULL, 'vedo@gmail.com', '$2y$10$oZ6LSzFBMYJns7m/ZcKD7.dSTIAU2uqDaDw9ChB8x83/cdy20Xa3C', 'profile.jpg', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -236,7 +233,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -266,7 +263,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
