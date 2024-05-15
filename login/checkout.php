@@ -184,10 +184,17 @@ if (isset($_SESSION['id'])) {
     <div class="payment-method">
       <h3>Payment Method</h3>
 <div class="payment-methods-container" required>
-  <label><input type="radio" name="payment_method" value="Credit Card"> Credit Card</label>
-  <label><input type="radio" name="payment_method" value="Paypal"> PayPal</label>
-  <label><input type="radio" name="payment_method" value="GCash"> GCash</label>
-  <label><input type="radio" name="payment_method" value="Bank Transfer"> Bank Transfer</label>
+   <label><input type="radio" name="payment_method" value="GCash" onclick="showGcashModal()"> GCash</label>
+   <div id="fileUploadContainer" style="display: none;">
+        <input type="file" id="fileInput" name="payment_proof" accept="image/*, .pdf">
+    </div>
+  <div id="gcashModal" class="modal">
+        <div class="modal-content"  style=" max-width: 250px; margin-top:70px; margin-bottom:-50px;">
+            <span class="close" onclick="closeGcashModal()">&times;</span>
+            <img src="/images/gcash.jpg" alt="GCash QR Code" style=" max-width: 250px;"><br><br>
+            <p>Scan this Gcash QR code to place your order.</p>
+        </div>
+    </div>
   <label><input type="radio" name="payment_method" value="Cash On Delivery"> Cash on Delivery</label>
 </div>
  <button type="button" class="checkout-btn" onclick="showConfirmationModal()">Place order</button>
@@ -288,6 +295,21 @@ if (isset($_SESSION['id'])) {
     var minDate = rentToDate.toISOString().split('T')[0];
     rentToDateInput.setAttribute('min', minDate);
   }
+  // Function to show the GCash modal
+        function showGcashModal() {
+            var modal = document.getElementById("gcashModal");
+             var fileUploadContainer = document.getElementById("fileUploadContainer");
+            modal.style.display = "block";
+             fileUploadContainer.style.display = "block";
+        }
+
+        // Function to close the GCash modal
+        function closeGcashModal() {
+            var modal = document.getElementById("gcashModal");
+             var fileUploadContainer = document.getElementById("fileUploadContainer");
+            modal.style.display = "none";
+            fileUploadContainer.style.display = "block"; 
+        }
 
 </script>
   </div>
