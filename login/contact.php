@@ -3,8 +3,26 @@ session_start();
 include "../components/db_connect.php";
 date_default_timezone_set("Asia/Manila");
 
-
 if (isset($_SESSION['id'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $message = $_POST['message'];
+        
+        $stmt = $conn->prepare("INSERT INTO contact_form (first_name, last_name, email, phone_number, message) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $firstName, $lastName, $email, $phone, $message);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('Message sent successfully');</script>";
+        } else {
+            echo "<script>alert('Error sending message');</script>";
+        }
+
+        $stmt->close();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +47,9 @@ if (isset($_SESSION['id'])) {
           <h2>Contact Form</h2>
           <p>We’d love to hear from you. Let’s get in touch and discuss your needs.</p>
           </div>
-      <div class="contact-form">
+     
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+          <div class="contact-form">
   <div class="input-group">
     <label for="firstName">First Name</label>
     <input type="text" id="firstName" name="firstName" required>
@@ -51,26 +71,11 @@ if (isset($_SESSION['id'])) {
     <textarea id="message" name="message" rows="4" required></textarea>
   </div>
   <div class="button-group" style="grid-column: span 2;">
-    <button type="button" class="submit" onclick="showConfirmationModal()">Submit</button>
+    <button class="submit"type="submit" onclick="">Submit</button>
     <button class="reset" type="reset">Reset</button>
-  </div>
-  <div id="confirmationModal" class="modal">
-    <div class="modal-content">
-      <h2>Confirmation</h2>
-      <p>Are you sure you want to submit?</p>
-      <button type="button" class="modal-button"onclick="closeConfirmationModal()">Cancel</button>
-      <button  type="button" class="modal-button-confirm"onclick="showOrderConfirmedModal()">Confirm</button>
-    </div>
-    </div>
 
-    <div id="orderConfirmedModal" class="modal">
-    <div class="modal-content">
-      <h2>Sent Confirmed</h2>
-      <p>Thank you for your message</p>
-      <button type="submit" class="modal-button-confirm" onclick="closeOrderConfirmedModal()">Close</button>
-    </div>
-    </div>
-</div>
+        </form>
+      </div>
         </div>
     </main>
     <?php require'../components/footer.php';?>
