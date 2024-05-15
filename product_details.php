@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
             <!-- Product details -->
             <div class="cardproduct">
                 <div class="image-column">
-                    <img class="card-img" src="./images/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
+                    <img class="card-img" src="./images/products/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
                 </div>
                 <div class="details-column">
                     <h2><?php echo $product['name']; ?></h2>

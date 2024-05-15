@@ -22,23 +22,23 @@ if (isset($_SESSION['id'])) {
     <?php require'../components/header1.php';?>
     <main>
   
-      <div class="search-container">
-  <div class="search-bar">
-    <input type="text" placeholder="Search products and packages..." />
-    <button type="button" class="search-button">
-      <i class="fas fa-search"></i>
-    </button>
-  </div>
-</div>
+    <div class="search-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Search products and packages..." id="searchInput"/>
+        <button type="button" class="search-button" id="searchButton">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
       <script src="../js/homepage.js"></script>
       <div class="image-with-text">
-  <img id="slideshow-image" src="../images/home3.jpg" alt="Image" />
+  <img id="slideshow-image" src="../images/assets/home3.jpg" alt="Image" />
     <div class="slideshow-images">
-      <img src="../images/home3.jpg" alt="Image 5" />
-    <img src="../images/home6.jpg" alt="Image 1" />
-    <img src="../images/home7.jpg" alt="Image 2" />
-    <img src="../images/home8.jpg" alt="Image 3" />
-    <img src="../images/home9.jpg" alt="Image 4" />
+      <img src="../images/assets/home3.jpg" alt="Image 5" />
+    <img src="../images/assets/home6.jpg" alt="Image 1" />
+    <img src="../images/assets/home7.jpg" alt="Image 2" />
+    <img src="../images/assets/home8.jpg" alt="Image 3" />
+    <img src="../images/assets/home9.jpg" alt="Image 4" />
   <div class="image-text-welcome">Welcome to PaRental Guardians</div>
   <div class="image-text">ELEVATE YOUR EVENT EXPERIENCE</div>
   </div>
@@ -54,58 +54,63 @@ if (isset($_SESSION['id'])) {
             imagination.
           </p>
           </div>
-          <div class="cards">
-      <div class="card">
-        <img class = card-img src="../images/chair.jpg" alt="Chairs">
-        <h3>Chairs</h3>
-        <p> Elevate your event with our diverse selection of chairs, offering comfort and style for any occasion.</p>
-        <a href="products.php?name=Chairs">View More</a>
-      </div>
-      <div class="card">
-        <img class = card-img src="../images/table.jpg" alt="Tables">
-        <h3>Tables</h3>
-        <p>Discover the perfect table to anchor your event space, whether it's for dining, displays, or networking.</p>
-        <a href="products.php?name=Tables">View More</a>
-      </div>
-      <div class="card">
-        <img class = card-img src="../images/furniture.jpg" alt="Furniture">
-        <h3>Flatware</h3>
-        <p>Add a touch of elegance to your dining experience with our exquisite flatware collection. .</p>
-        <a href="products.php?name=Flatware">View More</a>
-      </div>
-      <div class="card">
-        <img class = card-img src="../images/linen.jpg" alt="Linens">
-        <h3>Linens</h3>
-        <p>Enhance your table settings with our linens, adding elegance and sophistication to every meal.</p>
-        <a href="products.php?name=Linens">View More</a>
-      </div>
-    </div>
-        </div>
-      <div class="cards2">
-      <div class="card2">
-        <img class = card-img src="../images/tent.jpg" alt="tent">
-        <h3>Tent</h3>
-        <p> Provide shelter with our tent options, ensuring your event is memorable rain or shine.</p>
-        <a href="products.php?name=Tent">View More</a>
-      </div>
-      <div class="card2">
-        <img class = card-img src="../images/glassware.jpg" alt="Glassware">
-        <h3>Glassware</h3>
-        <p> Elevate your beverage service with our premium glassware, adding a touch of sophistication to every toast.</p>
-        <a href="products.php?name=Glassware">View More</a>
-      </div>
-      <div class="card2">
-        <img class = card-img src="../images/lighting.jpg" alt="Lighting">
-        <h3>Lighting</h3>
-        <p>Illuminate your event with our lighting options, highlight every moment with elegance and flair.</p>
-        <a href="products.php?name=Lighting">View More</a>
-      </div>
-      <div class="card2">
-        <img class = card-img src="../images/cooking.png" alt="Serving">
-        <h3>Serving</h3>
-        <p> Ensure seamless food presentation and service with our quality food service equipment.</p>
-        <a href="products.php?name=Serving">View More</a>
-      </div>  
+          <div class="container">
+          <?php
+            
+            include "../components/db_connect.php";
+
+            
+            $sql = "SELECT * FROM category";
+            $result = $conn->query($sql);
+
+            
+            if ($result->num_rows > 0) {
+                // Initialize an array to store category data
+                $categories = array();
+
+                // Fetch each row of category data and store it in the array
+                while ($row = $result->fetch_assoc()) {
+                    $categories[] = $row;
+                }
+            }
+
+            // Close the database connection (assuming your db_conn.php file doesn't close the connection)
+            $conn->close();
+
+            // Generate HTML for the cards
+            $cards_html = '';
+            $counter = 0;
+
+            // Check if category data was fetched successfully
+            if (!empty($categories)) {
+                // Loop through each category and generate the card HTML
+                foreach ($categories as $category) {
+                    // Increment the counter
+                    $counter++;
+
+                    // Create a new cards div every four entries
+                    if ($counter % 4 == 1) {
+                        $cards_html .= '<div class="cards">';
+                    }
+
+                    $cards_html .= '
+                        <div class="card">
+                            <img class="card-img" src="../images/categories/' . $category["picture"] . '" alt="' . $category["name"] . '">
+                            <h3>' . $category["name"] . '</h3>
+                            <p>' . $category["description"] . '</p>
+                            <a href="products.php?name=' . $category["name"] . '">View More</a>
+                        </div>';
+
+                    // Close the cards div every four entries
+                    if ($counter % 4 == 0 || $counter == count($categories)) {
+                        $cards_html .= '</div>'; // Close the cards div
+                    }
+                }
+            }
+
+            ?>
+
+          <?php echo $cards_html; ?>  
     </div>
      <div class="container">
         <div class="banner">
@@ -146,6 +151,25 @@ if (isset($_SESSION['id'])) {
       </div>
     </main>
     <?php require'../components/footer.php';?>
+    <script>
+         // Function to redirect to search_product.php when search button is clicked or Enter key is pressed
+         function redirectToSearch() {
+            var searchText = document.getElementById('searchInput').value.trim();
+            if (searchText !== '') {
+                window.location.href = 'search_products.php?search=' + encodeURIComponent(searchText);
+            }
+        }
+
+        // Event listener for search button click
+        document.getElementById('searchButton').addEventListener('click', redirectToSearch);
+
+        // Event listener for Enter key press in the input field
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                redirectToSearch();
+            }
+        });
+    </script> 
   </body>
 </html>
 

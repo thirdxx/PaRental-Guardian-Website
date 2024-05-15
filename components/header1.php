@@ -46,16 +46,17 @@ echo "<script>console.log('Cart count: " . $cart_count . "');</script>";
                         <div class="column">
                             <a href="../login/products.php?name=Chairs"><i class="fas fa-chair" style="margin-right: 5px"></i> Chairs </a>
                             <a href="../login/products.php?name=Tables"><i class="fas fa-square" style="margin-right: 5px"></i> Tables </a>
-                            <a href="../login/products.php?name=Serving"><i class="fas fa-circle" style="margin-right: 5px"></i> Serving </a>
+                            <a href="../login/products.php?name=Dinnerwares"><i class="fas fa-record-vinyl" style="margin-right: 5px"></i> Dinnerwares </a> 
                         </div>
                         <div class="column">
-                            <a href="../login/products.php?name=Glassware"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware</a>
+                            <a href="../login/products.php?name=Services"><i class="fas fa-circle" style="margin-right: 5px"></i> Services </a>
+                            <a href="../login/products.php?name=Glassware"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware </a>
                             <a href="../login/products.php?name=Flatware"><i class="fas fa-utensils" style="margin-right: 5px"></i> Flatware </a>
-                            <a href="../login/products.php?name=Linens"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
                         </div>
                         <div class="column">
+                            <a href="../login/products.php?name=Linens"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
                             <a href="../login/products.php?name=Tent"><i class="fas fa-campground" style="margin-right: 5px"></i> Tent </a>
-                            <a href="../login/products.php?name=Lighting"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Lighting </a>
+                            <a href="../login/products.php?name=Lights and Decorations"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Light & Deco </a>
                         </div>
                     </div>
                 </li>

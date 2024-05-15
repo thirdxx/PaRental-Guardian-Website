@@ -107,7 +107,7 @@ if (isset($_SESSION['id'])) {
                       $total += $itemRow['subtotal'];
               ?>
               <tr>
-                <td><img src="../images/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
+                <td><img src="../images/products/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
                 <td><?php echo $itemRow['product_name']; ?></td>
                 <td>x<?php echo $itemRow['order_quantity']; ?></td>
                 <td>₱<?php echo number_format($itemRow['product_price'], 2); ?></td>

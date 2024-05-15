@@ -45,7 +45,7 @@ if (isset($_SESSION['id'])) {
           </div>
           <div class="cards">
       <div class="card">
-        <img class = card-img src="images/amir.png" alt="Party Decorations">
+        <img class = card-img src="../images/assets/amir.png" alt="Party Decorations">
         <h3>Amir Saberon</h3>
         <h4>Project Manager, Creatives Director</h4>
         <h5>amirsebastiansallo.saberon@bicol-u.edu.ph</h5>
@@ -53,7 +53,7 @@ if (isset($_SESSION['id'])) {
         <p> Amir is a seasoned project manager and creative director with a passion for innovation and design. With over a decade of experience in the industry, he oversees project execution from conception to delivery, ensuring seamless workflows and exceptional results. Amir's creative vision and leadership inspire our team to push boundaries and deliver outstanding solutions that exceed client expectations.</p>
       </div>
       <div class="card">
-        <img class = card-img src="images/maureen.png" alt="Party Decorations">
+        <img class = card-img src="../images/assets/maureen.png" alt="Party Decorations">
         <h3>Maureen Benitez</h3>
         <h4>Finance Director, Sales Manager</h4>
         <h5>maureenasirit.benitez@bicol-u.edu.ph</h5>
@@ -61,7 +61,7 @@ if (isset($_SESSION['id'])) {
         <p>Maureen is a dynamic leader with a dual role as finance director and sales manager. With a background in finance and sales, she brings a unique perspective to managing our company's financial health and driving revenue growth. Maureen's strategic mindset and keen business acumen enable her to optimize financial performance and spearhead successful sales initiatives that drive business growth.</p>
       </div>
       <div class="card">
-        <img class = card-img src="images/diogenes.png" alt="Party Decorations">
+        <img class = card-img src="../images/assets/diogenes.png" alt="Party Decorations">
         <h3>Diogenes Tayam</h3>
         <h4>Front-end Developer, Designer</h4>
         <h5>diogenesiiiaraojo.tayam@bicol-u.edu.ph</h5>
@@ -70,7 +70,7 @@ if (isset($_SESSION['id'])) {
     
       </div>
       <div class="card">
-        <img class = card-img src="images/alvan.png" alt="Party Decorations">
+        <img class = card-img src="../images/assets/alvan.png" alt="Party Decorations">
         <h3>Alvan Bernal</h3>
         <h4>Back-end Developer, IT Technician</h4>
          <h5>johnalvanblanco.bernal@bicol-u.edu.ph</h5>

@@ -12,16 +12,17 @@
         <div class="column">
           <a href="products.php?name=Chairs"><i class="fas fa-chair" style="margin-right: 5px"></i> Chairs </a>
           <a href="products.php?name=Tables"><i class="fas fa-square" style="margin-right: 5px"></i> Tables </a>
-            <a href="products.php?name=Serving"><i class="fas fa-circle" style="margin-right: 5px"></i> Serving </a>
+            <a href="products.php?name=Dinnerwares"><i class="fas fa-record-vinyl" style="margin-right: 5px"></i> Dinnerwares </a>
         </div>
         <div class="column">
-            <a href="products.php?name=Glassware"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware</a>
-           <a href="products.php?name=Flatware"><i class="fas fa-utensils" style="margin-right: 5px"></i> Flatware </a>
-           <a href="products.php?name=Linens"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
+          <a href="products.php?name=Services"><i class="fas fa-circle" style="margin-right: 5px"></i> Services </a>
+          <a href="products.php?name=Glassware"><i class="fas fa-wine-glass" style="margin-right: 5px"></i> Glassware</a>
+          <a href="products.php?name=Flatware"><i class="fas fa-utensils" style="margin-right: 5px"></i> Flatware </a> 
         </div>
         <div class="column">
+          <a href="products.php?name=Linens"><i class="fas fa-sticky-note" style="margin-right: 5px"></i> Linens </a>
           <a href="products.php?name=Tent"><i class="fas fa-campground" style="margin-right: 5px"></i> Tent </a>
-          <a href="products.php?name=Lighting"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Lighting </a>
+          <a href="products.php?name=Light and Decorations"><i class="fas fa-regular fa-lightbulb" style="margin-right: 5px"></i> Lights & Deco </a>
         </div>
       </div>
     </li>

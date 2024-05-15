@@ -74,7 +74,7 @@ if (isset($_SESSION['id'])) {
 
                 echo '<tr>';
                 echo '<td><input type="checkbox" name="checked_cart[]" value="' . $row['id'] . '" onclick="checkboxupdateTotal(this)"></td>';
-                echo '<td><img src="../images/' . $row['product_image'] . '" alt="' . $row['product_name'] . '"></td>'; // Fetching the image URL from the database
+                echo '<td><img src="../images/products/' . $row['product_image'] . '" alt="' . $row['product_name'] . '"></td>'; // Fetching the image URL from the database
                 echo '<td class="product-details">' . $row['product_name'] . '<br>From: ' . $row['start_date'] . ' ——– To: ' . $row['end_date'] . ' <br>Color: ' . $row['product_color'] . '</td>'; // Fetching the product name from the database
                 echo '<td class="product-price">₱' . $row['product_price'] . ' x <br>' . $weeks . ' Weeks</td>'; // Fetching price and the number of weeks
                 echo '<td>';

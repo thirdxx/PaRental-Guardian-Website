@@ -70,7 +70,7 @@
 
                     $cards_html .= '
                         <div class="card">
-                            <img class="card-img" src="images/' . $category["picture"] . '" alt="' . $category["name"] . '">
+                            <img class="card-img" src="images/categories/' . $category["picture"] . '" alt="' . $category["name"] . '">
                             <h3>' . $category["name"] . '</h3>
                             <p>' . $category["description"] . '</p>
                             <a href="products.php?name=' . $category["name"] . '">View More</a>

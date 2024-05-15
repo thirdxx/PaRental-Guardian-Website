@@ -88,7 +88,7 @@ if (!empty($products)) {
 
         $cards_html .= '
             <div class="card">
-            <a href="product_details.php?id=' . $product['id'] . '"><img class="card-img" src="images/' . $product["image"] . '" alt="' . $product["name"] . '"></a>
+            <a href="product_details.php?id=' . $product['id'] . '"><img class="card-img" src="images/products/' . $product["image"] . '" alt="' . $product["name"] . '"></a>
             <h3>' . $product["name"] . '</h3>
             <p>₱' . $product["price"] . '</p>
             <a href="product_details.php?id=' . $product['id'] . '" class="addtocart">Add to cart <i class="fas fa-arrow-right"></i></a>
