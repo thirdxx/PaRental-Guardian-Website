@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checked_cart'])) {
       // Check if the cart item exists in the database
       $cart_id = intval($cart_id);
       $quantity = intval($_POST['cart'][$cart_id]['quantity']);
-      $subtotal = $_POST['cart'][$cart_id]['product_price'] * $quantity * $_POST['cart'][$cart_id]['weeks'];
+      $subtotal = $_POST['cart'][$cart_id]['product_price'] * $quantity * $_POST['cart'][$cart_id]['day'];
 
       // Prepare and execute the update query
       $update_query = "UPDATE cart SET quantity = ?, subtotal = ? WHERE id = ?";
@@ -113,7 +113,7 @@ if (isset($_SESSION['id'])) {
       <thead>
         <tr>
           <th>Product</th>
-          <th>Weeks</th>
+          <th>Day/s</th>
           <th>Subtotal</th>
         </tr>
       </thead>
@@ -145,14 +145,14 @@ if (isset($_SESSION['id'])) {
                   $start_date = new DateTime($row['start_date']);
                   $end_date = new DateTime($row['end_date']);
                   $interval = $start_date->diff($end_date);
-                  $weeks = ceil($interval->days / 7);
+                  $day = ceil($interval->days);
                   echo '<tr>';
                   echo '<td>' . $product_name . ' <span class="product-price" data-price="' . $product_price . '" ></span> [ ' . $product_price . ' ] <span class="quantity"> x ' . $quantity . ' </span></td>';
-                  echo '<td><span class="weeks" id="weeks">' . $weeks . ' Week/s</span></td>';
+                  echo '<td><span class="day" id="day">' . $day . ' Day/s</span></td>';
                   echo '<td><span id="total-price">₱ ' . number_format($subtotal, 2) . '</td>';
                   echo '</tr>';
                   echo '<input type="hidden" name="checked_cart[]" value="' . $cart_id . '">';
-                  echo '<input class="new_weeks" type="hidden" id="new_weeks" name="cart[' . $cart_id . '][weeks]" >';
+                  echo '<input class="new_day" type="hidden" id="new_day" name="cart[' . $cart_id . '][day]" >';
               }
           }          
               // Display total
@@ -234,35 +234,35 @@ if (isset($_SESSION['id'])) {
       var rentTo = new Date(document.getElementById("rent-to").value);
       var days = Math.ceil((rentTo - rentFrom) / (1000 * 60 * 60 * 24));
       var basePriceElements = document.querySelectorAll('.product-price');
-      var newWeeksInputs = document.querySelectorAll('.new_weeks');
+      var newDayInputs = document.querySelectorAll('.new_day');
       var quantityElements = document.querySelectorAll('.quantity');
       var subtotalElements = document.querySelectorAll('#total-price');
       var total = 0; // Initialize total variable
       var fee = 0;
 
       basePriceElements.forEach(function(basePriceElement, index) {
-          var weeks = 0;
+          var day = 0;
           var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
-          weeks = Math.ceil(days / 7); // Calculate number of weeks
+          day = Math.ceil(days); 
           var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
-          var subtotal = basePrice * quantity * weeks;
+          var subtotal = basePrice * quantity * day;
 
           
 
           // Update total
           total += subtotal;
 
-          if (!isNaN(weeks)) {
-              // Set weeks text for display
-              var weeksText = "" + weeks + " Week/s";
-              var weeksElements = document.querySelectorAll('.weeks');
-              weeksElements[index].innerText = weeksText;
+          if (!isNaN(day)) {
+              // Set day text for display
+              var dayText = "" + day + " Day/s";
+              var dayElements = document.querySelectorAll('.day');
+              dayElements[index].innerText = dayText;
 
               // Update subtotal for display
               subtotalElements[index].innerText = '₱' + subtotal.toFixed(2);
 
-              // Set weeks value for form submission
-              newWeeksInputs[index].value = weeks;
+              // Set day value for form submission
+              newDayInputs[index].value = day;
           }
       });
 

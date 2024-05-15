@@ -63,20 +63,20 @@ if (isset($_SESSION['id'])) {
         if (mysqli_num_rows($result) > 0) {
             // Loop through each cart item and generate HTML rows dynamically
             while ($row = mysqli_fetch_assoc($result)) {
-                // Calculate the number of weeks
+                // Calculate the number of day
                 $start_date = new DateTime($row['start_date']);
                 $end_date = new DateTime($row['end_date']);
                 $interval = $start_date->diff($end_date);
-                $weeks = ceil($interval->days / 7);
-                // $total = $row['product_price'] * $row['quantity'] * $weeks;
+                $day = ceil($interval->days);
+                // $total = $row['product_price'] * $row['quantity'] * $day;
                 echo '<input class="product-price" type="hidden" name="cart[' . $row['id'] . '][product_price]" value="' . $row['product_price'] . '">';
-                echo '<input class="newsubtotal" type="hidden" name="cart[' . $row['id'] . '][weeks]" value="' . $weeks . '">';
+                echo '<input class="newsubtotal" type="hidden" name="cart[' . $row['id'] . '][day]" value="' . $day . '">';
 
                 echo '<tr>';
                 echo '<td><input type="checkbox" name="checked_cart[]" value="' . $row['id'] . '" onclick="checkboxupdateTotal(this)"></td>';
                 echo '<td><img src="../images/products/' . $row['product_image'] . '" alt="' . $row['product_name'] . '"></td>'; // Fetching the image URL from the database
-                echo '<td class="product-details">' . $row['product_name'] . '<br>From: ' . $row['start_date'] . ' ——– To: ' . $row['end_date'] . ' <br>Color: ' . $row['product_color'] . '</td>'; // Fetching the product name from the database
-                echo '<td class="product-price">₱' . $row['product_price'] . ' x <br>' . $weeks . ' Weeks</td>'; // Fetching price and the number of weeks
+                echo '<td class="product-details">' . $row['product_name'] . '<br>From: ' . $row['start_date'] . '—To: ' . $row['end_date'] . ' <br>Color: ' . $row['product_color'] . '</td>'; // Fetching the product name from the database
+                echo '<td class="product-price">₱' . $row['product_price'] . ' x <br>' . $day . ' Day/s</td>'; // Fetching price and the number of day
                 echo '<td>';
                 echo '<div class="quantity">';
                 echo '<button type="button" class="minus" onclick="decrementQuantity(this.parentNode.querySelector(\'.textarea\'))">-</button>';
@@ -85,7 +85,7 @@ if (isset($_SESSION['id'])) {
                 echo '</div>';
                 echo '</td>';
                 echo '<td class="subtotal" name="cart[' . $row['id'] . '][subtotal]">₱' . $row['subtotal'] . '</td>';
-                echo '<td class="weeks" style="display: none;">' . $weeks . '</td>'; // Hidden field for weeks 
+                echo '<td class="day" style="display: none;">' . $day . '</td>'; // Hidden field for day 
                 echo '<td><button type="button" class="delete-button" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></button></td>';
                 echo '</tr>';                
             }
@@ -154,12 +154,12 @@ if (isset($_SESSION['id'])) {
           var row = inputElement.closest('tr');
           var quantity = parseInt(inputElement.value);
           var pricePerWeek = parseFloat(row.querySelector('.product-price').innerText.replace('₱', '').replace(',', ''));
-          var weeks = parseInt(row.querySelector('.weeks').innerText);
+          var day = parseInt(row.querySelector('.day').innerText);
           var subtotalElement = row.closest('tr').querySelector('.subtotal');
           var currentsubtotal = parseFloat(subtotalElement.innerText.replace('₱', '').replace(',', ''));
           var subtotalvalueElement = document.querySelector('.subtotalvalue');
 
-          var subtotal = quantity * pricePerWeek * weeks;
+          var subtotal = quantity * pricePerWeek * day;
           row.querySelector('.subtotal').innerText = '₱' + subtotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
           var checkbox = inputElement.closest('tr').querySelector('input[type="checkbox"]');

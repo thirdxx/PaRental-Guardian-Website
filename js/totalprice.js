@@ -13,13 +13,13 @@ function calculatePrice() {
     console.log("Weeks:", weeks);
     console.log("Quantity:", quantity);
 
-    if(isNaN(weeks)){
+    if(isNaN(days)){
       var totalPrice = basePrice * quantity;
       console.log("total:", totalPrice);
       document.getElementById("total-price").innerText = "₱" + totalPrice.toFixed(2);
       document.getElementById("total-price-display").value = totalPrice.toFixed(2);
     } else {
-      var totalPrice = basePrice * weeks * quantity;
+      var totalPrice = basePrice * days * quantity;
       console.log("total:", totalPrice);
       document.getElementById("total-price").innerText = "₱" + totalPrice.toFixed(2);
       document.getElementById("total-price-display").value = totalPrice.toFixed(2);
