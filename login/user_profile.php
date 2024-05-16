@@ -87,7 +87,8 @@ if (isset($_SESSION['id'])) {
           <label class="avatarname"><?php echo $fullName; ?></label>
           <br>
           <a class="accountbutton" href="user_profile.php"><i class="fas fa-solid fa-user"></i> My Account</a><br><br>
-          <a class="purchasebutton" href="purchase.php"><i class="fas fa-solid fas fa-clipboard-list"></i> My Purchase</a><br><br><br><br><br><br><br><br><br><br><br><br>
+          <a class="purchasebutton" href="purchase.php"><i class="fas fa-solid fas fa-clipboard-list"></i> My Purchase</a><br><br>
+           <a class="purchasebutton" href="rate.php"><i class="fas fa-regular fa-star"></i> My Reviews</a><br><br><br><br><br><br><br><br><br><br>
           <a class="logoutbutton" href="../index.php"><i class="fas fa-solid fas fa-clipboard-list"></i> Log out</a>
         </div>
         

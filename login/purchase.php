@@ -82,7 +82,8 @@ if (isset($_SESSION['id'])) {
             <label class="avatarname"><?php echo $fullName; ?></label>
             <br>
             <a class="accountbutton" href="user_profile.php"><i class="fas fa-solid fa-user" ></i> My Account</a><br><br>
-            <a class="purchasebutton" href="purchase.php"><i class="fas fa-solid fas fa-clipboard-list"></i> My Purchase</a><br><br><br><br><br><br><br><br><br><br><br><br>
+            <a class="purchasebutton" href="purchase.php"><i class="fas fa-solid fas fa-clipboard-list"></i> My Purchase</a><br><br>
+             <a class="accountbutton" href="reviews.php"><i class="fas fa-regular fa-star"></i> My Reviews</a><br><br><br><br><br><br><br><br><br><br>
             <a class="logoutbutton" href="../index.php"><i class="fas fa-solid fas fa-clipboard-list"></i> Logout</a>
           </div>
 
@@ -110,7 +111,7 @@ if (isset($_SESSION['id'])) {
                             
                               // Close the previous order total row
                               echo "
-                              <tr>
+                              <tr style='background-color: #f3ffe3;'>
                                 <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
                                 <td colspan='1'></td>
                                 <td class='total'>Total:</td>
@@ -134,18 +135,27 @@ if (isset($_SESSION['id'])) {
                 <td>₱<?php echo number_format($itemRow['product_price'], 2); ?></td>
                 <td>₱<?php echo number_format($itemRow['subtotal'], 2); ?></td>
                 <td><?php echo $itemRow['order_status']; ?></td>
-                <td><a class="againbutton">Rent Again</a></td>
+                <td>
+        <?php 
+        if ($itemRow['order_status'] == "Returned") {
+            echo "<a class='againbutton'  href='rate.php?product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
+        } else {
+            echo "<a class='againbutton'>Rent Again</a>";
+        }
+        ?>
+    </td>
+                
               </tr>
               <?php
              
                   }
                   // Close the last order total row
                   echo "
-                  <tr>
+                  <tr style='background-color: #f3ffe3;'>
                     <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
                     <td colspan='1'></td>
                     <td class='total'>Total:</td>
-                    <td>₱" . number_format($total, 2) . "</td>
+                    <td >₱" . number_format($total, 2) . "</td>
                     <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
                   </tr>";
               } else {
