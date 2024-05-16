@@ -50,29 +50,29 @@ if (isset($_SESSION['id'])) {
      
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
           <div class="contact-form">
-  <div class="input-group">
-    <label for="firstName">First Name</label>
-    <input type="text" id="firstName" name="firstName" required>
-  </div>
-  <div class="input-group">
-    <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" name="lastName" required>
-  </div>
-  <div class="input-group">
-    <label for="email">Email Address</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div class="input-group">
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" required>
-  </div>
-  <div class="input-group" style="grid-column: span 2;">
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
-  </div>
-  <div class="button-group" style="grid-column: span 2;">
-    <button class="submit"type="submit" onclick="">Submit</button>
-    <button class="reset" type="reset">Reset</button>
+          <div class="input-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="input-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+          <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="input-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+          <div class="input-group" style="grid-column: span 2;">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+          <div class="button-group" style="grid-column: span 2;">
+            <button class="submit"type="submit" onclick="">Submit</button>
+            <button class="reset" type="reset">Reset</button>
 
         </form>
       </div>

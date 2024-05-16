@@ -1,4 +1,4 @@
-<?php  
+<?php
 session_start();
 include "../components/db_connect.php";
 date_default_timezone_set("Asia/Manila");
@@ -15,16 +15,14 @@ if (isset($_SESSION['id'])) {
       $nameParts = explode(" ", $fullName);
       $firstName = $nameParts[0];
       $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
-      $phone = $row['phone_number'];
-      $email = $row['email'];
       $picture = $row['image'];
-      $username = $row['username'];
-      $address = $row['address'];
   }
 
   // Fetch order items for the user
   $orderItemsQuery = "
     SELECT 
+      orders.id AS order_id,
+      orders.date AS order_date,
       products.image AS product_image,
       products.name AS product_name,
       products.price AS product_price,
@@ -41,6 +39,8 @@ if (isset($_SESSION['id'])) {
       products ON order_item.product_id = products.id
     WHERE 
       orders.user_id = $userId
+    ORDER BY 
+      orders.id ASC
   ";
 
   $orderItemsResult = mysqli_query($conn, $orderItemsQuery);
@@ -74,7 +74,7 @@ if (isset($_SESSION['id'])) {
           <div class="userprofile">
             <div class="avatar">
                 <label for="avatar-upload">
-                  <img src="../images/<?php echo $picture; ?>" alt="Avatar" id="avatar-image" />
+                  <img src="../images/users/<?php echo $picture; ?>" alt="Avatar" id="avatar-image" />
                 </label>
                 <input type="file" id="avatar-upload" accept="image/*" style="display: none;" />
             </div>
@@ -91,7 +91,7 @@ if (isset($_SESSION['id'])) {
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Product Name</th>
+                <th></th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Subtotal</th>
@@ -102,9 +102,30 @@ if (isset($_SESSION['id'])) {
             <tbody>
               <?php
               $total = 0;
+              $currentOrderId = null;
               if ($orderItemsResult && mysqli_num_rows($orderItemsResult) > 0) {
                   while ($itemRow = mysqli_fetch_assoc($orderItemsResult)) {
+                      if ($currentOrderId != $itemRow['order_id']) {
+                          if ($currentOrderId !== null) {
+                            
+                              // Close the previous order total row
+                              echo "
+                              <tr>
+                                <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
+                                <td colspan='1'></td>
+                                <td class='total'>Total:</td>
+                                <td>₱" . number_format($total, 2) . "</td>
+                                <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
+                              </tr>";
+                              $total = 0; // Reset total for the next order
+                          }
+                          $currentOrderId = $itemRow['order_id'];
+                          $orderDate = $itemRow['order_date'];
+                          
+                          
+                      }
                       $total += $itemRow['subtotal'];
+                      
               ?>
               <tr>
                 <td><img src="../images/products/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
@@ -116,17 +137,21 @@ if (isset($_SESSION['id'])) {
                 <td><a class="againbutton">Rent Again</a></td>
               </tr>
               <?php
+             
                   }
+                  // Close the last order total row
+                  echo "
+                  <tr>
+                    <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
+                    <td colspan='1'></td>
+                    <td class='total'>Total:</td>
+                    <td>₱" . number_format($total, 2) . "</td>
+                    <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
+                  </tr>";
               } else {
                   echo "<tr><td colspan='7'>No orders found</td></tr>";
               }
               ?>
-              <tr>
-                <td colspan="4"></td>
-                <td class="total">Total:</td>
-                <td>₱<?php echo number_format($total, 2); ?></td>
-                <td><button class="modal-button-confirm" onclick="downloadPDF()">Print Invoice</button></td>
-              </tr>
             </tbody>
             </table>
           </div>

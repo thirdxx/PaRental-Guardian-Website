@@ -79,7 +79,7 @@ if (isset($_SESSION['id'])) {
         <div class="userprofile">
           <div class="avatar">
             <label for="avatar-upload">
-              <img src="../images/<?php echo $picture; ?>" alt="Avatar" id="avatar-image" />
+              <img src="../images/users/<?php echo $picture; ?>" alt="Avatar" id="avatar-image" />
             </label>
             <input type="file" id="avatar-upload" accept="image/*" style="display: none;" />
           </div>

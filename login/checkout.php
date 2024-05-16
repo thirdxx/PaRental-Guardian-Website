@@ -191,7 +191,7 @@ if (isset($_SESSION['id'])) {
   <div id="gcashModal" class="modal">
         <div class="modal-content"  style=" max-width: 250px; margin-top:70px; margin-bottom:-50px;">
             <span class="close" onclick="closeGcashModal()">&times;</span>
-            <img src="/images/gcash.jpg" alt="GCash QR Code" style=" max-width: 250px;"><br><br>
+            <img src="../images/gcash.jpg" alt="GCash QR Code" style=" max-width: 250px;"><br><br>
             <p>Scan this Gcash QR code to place your order.</p>
         </div>
     </div>
@@ -283,34 +283,33 @@ if (isset($_SESSION['id'])) {
     }
 
 
-  function disablePastDates() {
-    var today = new Date().toISOString().split('T')[0];
-    document.getElementById('rent-from').setAttribute('min', today);
-    document.getElementById('rent-to').setAttribute('min', today);
-    
-    var rentFromDate = document.getElementById('rent-from').value;
-    var rentToDateInput = document.getElementById('rent-to');
-    var rentToDate = new Date(rentFromDate);
-    rentToDate.setDate(rentToDate.getDate() + 1);
-    var minDate = rentToDate.toISOString().split('T')[0];
-    rentToDateInput.setAttribute('min', minDate);
-  }
+    function disablePastDates() {
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById('rent-from').setAttribute('min', today);
+      document.getElementById('rent-to').setAttribute('min', today);
+      
+      var rentFromDate = document.getElementById('rent-from').value;
+      var rentToDateInput = document.getElementById('rent-to');
+      var rentToDate = new Date(rentFromDate);
+      rentToDate.setDate(rentToDate.getDate() + 1);
+      var minDate = rentToDate.toISOString().split('T')[0];
+      rentToDateInput.setAttribute('min', minDate);
+    }
   // Function to show the GCash modal
-        function showGcashModal() {
-            var modal = document.getElementById("gcashModal");
-             var fileUploadContainer = document.getElementById("fileUploadContainer");
-            modal.style.display = "block";
-             fileUploadContainer.style.display = "block";
-        }
+    function showGcashModal() {
+        var modal = document.getElementById("gcashModal");
+          var fileUploadContainer = document.getElementById("fileUploadContainer");
+        modal.style.display = "block";
+          fileUploadContainer.style.display = "block";
+    }
 
-        // Function to close the GCash modal
-        function closeGcashModal() {
-            var modal = document.getElementById("gcashModal");
-             var fileUploadContainer = document.getElementById("fileUploadContainer");
-            modal.style.display = "none";
-            fileUploadContainer.style.display = "block"; 
-        }
-
+    // Function to close the GCash modal
+    function closeGcashModal() {
+        var modal = document.getElementById("gcashModal");
+          var fileUploadContainer = document.getElementById("fileUploadContainer");
+        modal.style.display = "none";
+        fileUploadContainer.style.display = "block"; 
+    }
 </script>
   </div>
 </div>
