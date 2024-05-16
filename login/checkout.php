@@ -298,7 +298,7 @@ if (isset($_SESSION['id'])) {
   // Function to show the GCash modal
     function showGcashModal() {
         var modal = document.getElementById("gcashModal");
-          var fileUploadContainer = document.getElementById("fileUploadContainer");
+        var fileUploadContainer = document.getElementById("fileUploadContainer");
         modal.style.display = "block";
           fileUploadContainer.style.display = "block";
     }

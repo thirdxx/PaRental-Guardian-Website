@@ -18,11 +18,12 @@ if (isset($_SESSION['id'])) {
       $picture = $row['image'];
   }
 
-  // Fetch order items for the user
+  // Fetch order items for the user with the status 'Returned' or 'Delivered'
   $orderItemsQuery = "
     SELECT 
       orders.id AS order_id,
       orders.date AS order_date,
+      products.id AS product_id,
       products.image AS product_image,
       products.name AS product_name,
       products.price AS product_price,
@@ -39,6 +40,7 @@ if (isset($_SESSION['id'])) {
       products ON order_item.product_id = products.id
     WHERE 
       orders.user_id = $userId
+      AND (order_item.status = 'Returned' OR order_item.status = 'Delivered' OR order_item.status = 'Completed')
     ORDER BY 
       orders.id ASC
   ";
@@ -71,6 +73,7 @@ if (isset($_SESSION['id'])) {
           <h2>My Reviews</h2>
         </div>
         <div class="container">
+        
           <div class="userprofile">
             <div class="avatar">
                 <label for="avatar-upload">
@@ -87,16 +90,20 @@ if (isset($_SESSION['id'])) {
             <a class="logoutbutton" href="../index.php"><i class="fas fa-solid fas fa-clipboard-list"></i> Logout</a>
           </div>
 
-          <div class="contact-form scrollable-table">      
+          <div class="contact-form scrollable-table"> 
+          <?php 
+              if (isset($_GET['success']) && $_GET['success'] == 1) {
+                echo '<div class="notification success"><p style="text-align: center; background-color: #f3ffe3; padding:10px">Rate successfully!</p></div>';
+              }
+          ?>     
             <table>
             <thead>
               <tr>
                 <th>Product</th>
                 <th></th>
-                <th>Rating</th>
-                <th>Review</th>
-                <th></th>
-                <th></th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
                 <th>Status</th>
                 <th></th>
               </tr>
@@ -117,7 +124,7 @@ if (isset($_SESSION['id'])) {
                                 <td colspan='1'></td>
                                 <td class='total'>Total:</td>
                                 <td>₱" . number_format($total, 2) . "</td>
-                                <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
+                                <td></td>
                               </tr>";
                               $total = 0; // Reset total for the next order
                           }
@@ -136,16 +143,15 @@ if (isset($_SESSION['id'])) {
                 <td>₱<?php echo number_format($itemRow['product_price'], 2); ?></td>
                 <td>₱<?php echo number_format($itemRow['subtotal'], 2); ?></td>
                 <td><?php echo $itemRow['order_status']; ?></td>
-                <td>
-        <?php 
-        if ($itemRow['order_status'] == "Returned") {
-            echo "<a class='againbutton'  href='rate.php?product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
-        } else {
-            echo "<a class='againbutton'>Rent Again</a>";
-        }
-        ?>
-    </td>
-                
+                <td >
+                <?php 
+                    if ($itemRow['order_status'] == "Returned") {
+                        echo "<a class='againbutton'  href='rate.php?&order_id=" . urlencode($itemRow['order_id']) . "&product_id=" . urlencode($itemRow['product_id']) . "&product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
+                    } else {
+                        echo "<a class='againbutton'  href='product_details.php?id=" . urlencode($itemRow['product_id']) . "'>Rent Again</a>";
+                    }
+                ?>
+                </td>
               </tr>
               <?php
              
@@ -157,7 +163,7 @@ if (isset($_SESSION['id'])) {
                     <td colspan='1'></td>
                     <td class='total'>Total:</td>
                     <td >₱" . number_format($total, 2) . "</td>
-                    <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
+                    <td></td>
                   </tr>";
               } else {
                   echo "<tr><td colspan='7'>No orders found</td></tr>";
@@ -169,36 +175,7 @@ if (isset($_SESSION['id'])) {
         </div>
       </div>
     </main>
-    <footer>
-      <div class="container">
-        <div class="contact-info">
-          <div class="column">
-            <h2 class="contact">Contact</h2>
-            <p>Barangay 1, Em’s Barrio, Legazpi City, Albay, Philippines, 4500</p>
-            <p>parentalguardians@gmail.com</p>
-            <p>+639273298367</p>
-            <a href="facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
-            <a href="pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a>
-          </div>
-          <div class="column">
-            <h2 class="business-hours">Business Hours</h2>
-            <p class="business-hours">Monday-Friday: 9:00 AM - 5:00 PM</p>
-            <p class="business-hours">Saturday: 1:00 PM - 5:00 PM</p>
-            <p class="business-hours">Sunday: Closed</p>
-            <p class="copyright">&copy; 2024 PaRental Guardians. All Rights Reserved.</p>
-          </div>
-          <div class="column">
-            <h2 class="links">Links</h2>
-            <p class="links" href="#">Home</p>
-            <p class="links" href="#">Products</p>
-            <p class="links" href="#">Packages</p>
-            <p class="links" href="#">About</p>
-            <p class="links" href="#">Contact</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <?php require '../components/footer.php'; ?>
     <script>
         function downloadPDF() {
             var pdfUrl = 'receipt.pdf';

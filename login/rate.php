@@ -1,8 +1,60 @@
 <?php
-// Retrieve parameters from the URL
-$productName = isset($_GET['product']) ? $_GET['product'] : '';
-$customerName = isset($_GET['name']) ? $_GET['name'] : '';
-$email = isset($_GET['email']) ? $_GET['email'] : '';
+session_start();
+include "../components/db_connect.php";
+date_default_timezone_set("Asia/Manila");
+
+if (isset($_SESSION['id'])) {
+    $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : '';
+    $productName = isset($_GET['product']) ? $_GET['product'] : '';
+    $customerName = isset($_GET['name']) ? $_GET['name'] : '';
+    $email = isset($_GET['email']) ? $_GET['email'] : '';
+    $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : '';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : '';
+        $order_id = isset($_POST['order_id']) ? $_POST['order_id'] : '';
+        $productName = isset($_POST['product']) ? $_POST['product'] : '';
+        $customerName = isset($_POST['name']) ? $_POST['name'] : '';
+        $email = isset($_POST['email']) ? $_POST['email'] : '';
+        $rating = isset($_POST['rating']) ? $_POST['rating'] : '';
+        $review = isset($_POST['review']) ? $_POST['review'] : '';
+
+        // Check if the product exists in the products table
+        $product_check_sql = "SELECT id FROM products WHERE id = '$product_id'";
+        $result = mysqli_query($conn, $product_check_sql);
+        if (mysqli_num_rows($result) == 0) {
+            echo "Error: Product ID does not exist.";
+            exit();
+        }
+
+        // Insert data into rate table
+        $sql = "INSERT INTO rate (product_id, name, email, rating, review) 
+                VALUES ('$product_id', '$customerName', '$email', '$rating', '$review')";
+        
+        if (mysqli_query($conn, $sql)) {
+            // Update counter and total_ratings in products table
+            $update_product_sql = "UPDATE products 
+                                   SET counter = counter + 1, 
+                                       total_ratings = total_ratings + '$rating' 
+                                   WHERE id = '$product_id'";
+            if (mysqli_query($conn, $update_product_sql)) {
+                // Update status in order_item table to "Completed"
+                $update_status_sql = "UPDATE order_item SET status = 'Completed' WHERE order_id = '$order_id' AND product_id = '$product_id'";
+                if(mysqli_query($conn, $update_status_sql)) {
+                    header("Location: ../login/reviews.php?success=1");
+                    exit();
+                } else {
+                    echo "Error updating order status: " . mysqli_error($conn);
+                }
+            } else {
+                echo "Error updating product rating: " . mysqli_error($conn);
+            }
+        } else {
+            echo "Error inserting review: " . mysqli_error($conn);
+        }
+
+        mysqli_close($conn);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,14 +102,17 @@ $email = isset($_GET['email']) ? $_GET['email'] : '';
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .form-group input[type="submit"] {
-            width: auto;
+        button{
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             background-color: #5cb85c;
             color: #fff;
             border: none;
             cursor: pointer;
         }
-        .form-group input[type="submit"]:hover {
+        button:hover {
             background-color: #4cae4c;
         }
         .rating {
@@ -91,7 +146,7 @@ $email = isset($_GET['email']) ? $_GET['email'] : '';
  <main>
 <div class="container">
     <h2>Rate Product</h2>
-    <form action="rate.php" method="POST">
+    <form class="form" method="post">
         <div class="form-group">
             <label for="product">Product Name:</label>
             <input type="text" id="product" name="product" value="<?php echo $productName; ?>" required>
@@ -123,11 +178,19 @@ $email = isset($_GET['email']) ? $_GET['email'] : '';
             <label for="review">Review:</label>
             <textarea id="review" name="review" rows="4"></textarea>
         </div>
+        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+        <input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
         <div class="form-group">
-            <input type="submit" value="Submit Review">
+            <button type="submit">Submit Review</button>
         </div>
     </form>
 </div>
 </main>
 </body>
 </html>
+<?php 
+}else{
+  header("Location: ../login/signin.php?error=You need to login first");
+  exit();
+}
+?>

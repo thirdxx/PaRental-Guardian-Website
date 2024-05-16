@@ -20,9 +20,12 @@ if (isset($_GET['id'])) {
     $sql = "SELECT * FROM products WHERE id = '$productId'";
     $result = $conn->query($sql);
 
+
     // Check if the product exists
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
+
+        $available_stock = $product['stock'] - ($product['reserve'] + $product['used']);
         // Product details found, display them
 ?>
 <!DOCTYPE html>
@@ -84,7 +87,7 @@ if (isset($_GET['id'])) {
                     <p>Color: <?php echo $product['color']; ?></p>
                     <p>Material: <?php echo $product['material']; ?></p>
                     <p>Dimension: <?php echo $product['dimension']; ?></p><br>
-                    <p>Stock: <?php echo $product['stock']; ?></p>
+                    <p>Stock: <?php echo $available_stock; ?></p>
                     
                 </div>
                 <!-- Rental section -->

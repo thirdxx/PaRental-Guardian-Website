@@ -106,27 +106,26 @@ if (isset($_SESSION['id'])) {
               $currentOrderId = null;
               if ($orderItemsResult && mysqli_num_rows($orderItemsResult) > 0) {
                   while ($itemRow = mysqli_fetch_assoc($orderItemsResult)) {
-                      if ($currentOrderId != $itemRow['order_id']) {
-                          if ($currentOrderId !== null) {
-                            
-                              // Close the previous order total row
-                              echo "
-                              <tr style='background-color: #f3ffe3;'>
-                                <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
-                                <td colspan='1'></td>
-                                <td class='total'>Total:</td>
-                                <td>₱" . number_format($total, 2) . "</td>
-                                <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
-                              </tr>";
-                              $total = 0; // Reset total for the next order
+                      if ($itemRow['order_status'] == 'Pending' || $itemRow['order_status'] == 'Processing') {
+                          if ($currentOrderId != $itemRow['order_id']) {
+                              if ($currentOrderId !== null) {
+                                
+                                  // Close the previous order total row
+                                  echo "
+                                  <tr style='background-color: #f3ffe3;'>
+                                    <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
+                                    <td colspan='1'></td>
+                                    <td class='total'>Total:</td>
+                                    <td>₱" . number_format($total, 2) . "</td>
+                                    <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
+                                  </tr>";
+                                  $total = 0; // Reset total for the next order
+                              }
+                              $currentOrderId = $itemRow['order_id'];
+                              $orderDate = $itemRow['order_date'];
                           }
-                          $currentOrderId = $itemRow['order_id'];
-                          $orderDate = $itemRow['order_date'];
+                          $total += $itemRow['subtotal'];
                           
-                          
-                      }
-                      $total += $itemRow['subtotal'];
-                      
               ?>
               <tr>
                 <td><img src="../images/products/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
@@ -136,18 +135,17 @@ if (isset($_SESSION['id'])) {
                 <td>₱<?php echo number_format($itemRow['subtotal'], 2); ?></td>
                 <td><?php echo $itemRow['order_status']; ?></td>
                 <td>
-        <?php 
-        if ($itemRow['order_status'] == "Returned") {
-            echo "<a class='againbutton'  href='rate.php?product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
-        } else {
-            echo "<a class='againbutton'>Rent Again</a>";
-        }
-        ?>
-    </td>
-                
+                <?php 
+                if ($itemRow['order_status'] == "Returned") {
+                    echo "<a class='againbutton'  href='rate.php?product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
+                } else {
+                    echo "<a class='againbutton'>Rent Again</a>";
+                }
+                ?>
+                </td>
               </tr>
               <?php
-             
+                      }
                   }
                   // Close the last order total row
                   echo "
@@ -168,36 +166,7 @@ if (isset($_SESSION['id'])) {
         </div>
       </div>
     </main>
-    <footer>
-      <div class="container">
-        <div class="contact-info">
-          <div class="column">
-            <h2 class="contact">Contact</h2>
-            <p>Barangay 1, Em’s Barrio, Legazpi City, Albay, Philippines, 4500</p>
-            <p>parentalguardians@gmail.com</p>
-            <p>+639273298367</p>
-            <a href="facebook.com" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
-            <a href="pinterest.com" class="social-icon"><i class="fab fa-pinterest"></i></a>
-          </div>
-          <div class="column">
-            <h2 class="business-hours">Business Hours</h2>
-            <p class="business-hours">Monday-Friday: 9:00 AM - 5:00 PM</p>
-            <p class="business-hours">Saturday: 1:00 PM - 5:00 PM</p>
-            <p class="business-hours">Sunday: Closed</p>
-            <p class="copyright">&copy; 2024 PaRental Guardians. All Rights Reserved.</p>
-          </div>
-          <div class="column">
-            <h2 class="links">Links</h2>
-            <p class="links" href="#">Home</p>
-            <p class="links" href="#">Products</p>
-            <p class="links" href="#">Packages</p>
-            <p class="links" href="#">About</p>
-            <p class="links" href="#">Contact</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <?php require '../components/footer.php'; ?>
     <script>
         function downloadPDF() {
             var pdfUrl = 'receipt.pdf';

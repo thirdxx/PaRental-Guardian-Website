@@ -68,11 +68,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checked_cart'])) {
                     $stmt_item->bind_param("iiiss", $orderId, $product_id, $quantity, $start_date, $end_date);
                     $stmt_item->execute();
 
+                    // Update the reserve column in the products table
+                    $update_reserve_query = "UPDATE products SET reserve = reserve + ? WHERE id = ?";
+                    $stmt_update = $conn->prepare($update_reserve_query);
+                    $stmt_update->bind_param("ii", $quantity, $product_id);
+                    $stmt_update->execute();
+
                     // Delete the cart item after storing it in order_item
                     $delete_cart_query = "DELETE FROM cart WHERE id = ?";
                     $stmt_delete = $conn->prepare($delete_cart_query);
                     $stmt_delete->bind_param("i", $cart_id);
                     $stmt_delete->execute();
+
+
                 }
             }
             // Order successfully inserted, redirect to a success page or do any other necessary actions
