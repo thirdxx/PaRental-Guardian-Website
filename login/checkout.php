@@ -392,16 +392,22 @@ if (isset($_SESSION['id'])) {
     var fee = 0;
 
       basePriceElements.forEach(function(basePriceElement, index) {
-          var day = 0;
-          var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
-          day = Math.ceil(days); 
-          var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
-          var subtotal = basePrice * quantity * day;
+        var multiplier = 0
+        var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
+        var category = parseInt(basePriceElement.getAttribute('data-category'));
+        var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
+        
+        
+        if (category === 10) {
 
-          
+          multiplier = Math.ceil(days / 5);
+        } else {
+          multiplier = Math.ceil(days);
+        }
+        day = Math.ceil(days);
 
-          // Update total
-          total += subtotal;
+        var subtotal = basePrice * quantity * multiplier;
+
 
         if (!isNaN(day)) {
             // Set day text for display
