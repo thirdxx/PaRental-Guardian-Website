@@ -24,18 +24,18 @@ if (isset($_SESSION['id'])) {
 </div>
 <div class="whoweare">
 <h2>WHO WE ARE</h2>
-    <p>PRG is your comprehensive online platform for event planning, offering accessible, transparent, and affordable solutions for your events. Making the planning and hosting within reach, PRG provides a curated selection of high-quality event-related products available for flexible rental terms. Combine this with PRG’s flat-rate packages containing event-related products needed for certain events, and a highly customizable package, ensuring both simplicity and flexibility in making your party a reality.</p>
+    <p>PaRENTAL is your comprehensive online platform for event planning, offering accessible, transparent, and affordable solutions for your events. Making the planning and hosting within reach, PaRENTAL provides a curated selection of high-quality event-related products available for flexible rental terms. Combine this with PaRENTAL’s flat-rate packages containing event-related products needed for certain events, and a highly customizable package, ensuring both simplicity and flexibility in making your party a reality.</p>
     </div>
     </div>
 <div class="columns-container">
   <div class="columns">
     <h2>MISSION</h2>
-    <p>PRG is to revolutionize event planning in Albay by providing accessible, affordable, and innovative rental solutions. Aiming to fill the gap with our user-friendly ecommerce platform, offering high-quality equipment for every occasion. Committed to community enrichment, we strive to inspire creativity and simplify the planning process, ensuring unforgettable events for all.
+    <p>PaRENTAL is to revolutionize event planning in Albay by providing accessible, affordable, and innovative rental solutions. Aiming to fill the gap with our user-friendly ecommerce platform, offering high-quality equipment for every occasion. Committed to community enrichment, we strive to inspire creativity and simplify the planning process, ensuring unforgettable events for all.
 </p>
   </div>
   <div class="columns">
     <h2>VISION</h2>
-    <p>PRG envisions a future where event planning in Albay is seamlessly transformed through accessible, affordable, and innovative rental solutions. With our pioneering ecommerce platform, we aim to bridge the gap, offering high-quality equipment tailored for every occasion. A vision to inspire creativity, simplify the planning process, and enrich the community, ensuring that every event becomes an unforgettable experience for all involved.
+    <p>PaRENTAL envisions a future where event planning in Albay is seamlessly transformed through accessible, affordable, and innovative rental solutions. With our pioneering ecommerce platform, we aim to bridge the gap, offering high-quality equipment tailored for every occasion. A vision to inspire creativity, simplify the planning process, and enrich the community, ensuring that every event becomes an unforgettable experience for all involved.
 </p>
   </div>
 </div>

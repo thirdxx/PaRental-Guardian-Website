@@ -167,7 +167,7 @@ if (isset($_SESSION['id'])) {
                     <td></td>
                   </tr>";
               } else {
-                  echo "<tr><td colspan='7'>No orders found</td></tr>";
+                  echo "<tr><td colspan='7'>No products found</td></tr>";
               }
               ?>
             </tbody>

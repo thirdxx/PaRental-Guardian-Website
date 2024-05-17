@@ -39,7 +39,7 @@ if (isset($_SESSION['id'])) {
     <img src="../images/assets/home7.jpg" alt="Image 2" />
     <img src="../images/assets/home8.jpg" alt="Image 3" />
     <img src="../images/assets/home9.jpg" alt="Image 4" />
-  <div class="image-text-welcome">Welcome to PaRental Guardians</div>
+  <div class="image-text-welcome">Welcome to PaRENTAL</div>
   <div class="image-text">ELEVATE YOUR EVENT EXPERIENCE</div>
   </div>
 </div>
@@ -117,7 +117,7 @@ if (isset($_SESSION['id'])) {
           <h2>Event Rental Packages for Every Ocassion</h2>
           <p>
             Planning your perfect wedding, corporate event, or party? 
-            PaRental Guradians makes the process simple by providing everything 
+            PaRENTAL makes the process simple by providing everything 
             your special event needs under one roof.
           </p>
           </div>
