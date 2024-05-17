@@ -27,6 +27,7 @@ if (isset($_GET['id'])) {
 
         $available_stock = $product['stock'] - ($product['reserve'] + $product['used']);
         // Product details found, display them
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,17 +40,64 @@ if (isset($_GET['id'])) {
     <script src="../js/totalprice.js"></script>
     <script src="../js/addtocart.js"></script>
     <style>
-    .notification {
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-    }
+        .notification {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
 
-    .success {
-        color: green;
-        background-color: #dff0d8;
-        border-color: #d0e9c6;
-    }
+        .success {
+            color: green;
+            background-color: #dff0d8;
+            border-color: #d0e9c6;
+        }
+
+        .review-rating .star {
+            font-size: 20px;
+            color: #f5a623;
+        }
+        .review p {
+            margin: 5px 0 0;
+        } 
+        table { 
+            border-collapse: collapse; 
+            border-spacing: 0; 
+            width: 100%; 
+            border: 0px solid #ddd; 
+        } 
+            
+        th, 
+        td { 
+            text-align: left; 
+            padding: 8px; 
+        } 
+            
+        ::-webkit-scrollbar { 
+            width: 10px; 
+        } 
+    
+        ::-webkit-scrollbar-track { 
+            background: #e0e0e0; 
+        } 
+    
+        ::-webkit-scrollbar-thumb { 
+            background: #e0e0e0; 
+        } 
+    
+        ::-webkit-scrollbar-thumb:hover { 
+            background: #adadad; 
+        } 
+            
+        .scroll { 
+            display: block; 
+            border: 0px solid gray; 
+            background-color: #F0F0F0;
+            padding: 5px; 
+            margin-top: 5px; 
+            width: 100%; 
+            height: 100px; 
+            overflow-y: scroll; 
+        } 
     </style>
 </head>
 <body>
@@ -82,14 +130,55 @@ if (isset($_GET['id'])) {
                 <div class="details-column">
                     <h2><?php echo $product['name']; ?></h2>
                     <h4 class="product-price" data-price="<?php echo $product['price']; ?>">Price: ₱<?php echo $product['price']; ?></h4>
-                    <!-- Additional product details -->
                     <h5>Per week</h5><br>
                     <p>Color: <?php echo $product['color']; ?></p>
                     <p>Material: <?php echo $product['material']; ?></p>
                     <p>Dimension: <?php echo $product['dimension']; ?></p><br>
                     <p>Stock: <?php echo $available_stock; ?></p>
                     
+                    <h3>Reviews</h3>
+                        <div class="scroll"> 
+                            <?php
+                                
+                                include "../components/db_connect.php";
+
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                $sql = "SELECT name, rating, review FROM rate WHERE product_id = $productId";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while($row = $result->fetch_assoc()) {
+                            ?>
+                                        <div class="review" style="margin-left:10px;">
+                                            <div class="review-rating">
+                                                <p style="margin-bottom:-10px; color: darkgreen;"><?= $row['name']; ?></p>
+                                                <?php
+                                                    for ($i = 1; $i <= 5; $i++) {
+                                                        echo $i <= $row['rating'] ? '<span class="star">&#9733;</span>' : '<span class="star">&#9734;</span>';
+                                                    }
+                                                ?>
+                                                <span style="font-size: 14px;"> <?= $row['rating']; ?></span>
+                                            </div>
+                                            <p style="margin-top:-5px"><?= $row['review']; ?></p>
+                                        </div>
+                                        <hr>
+                            <?php
+                                    }
+                                } else {
+                            ?>
+                                    <p style="text-align: center; margin-top: 40px;">No reviews</p>
+                            <?php
+                                }
+
+                             
+                            ?>
                 </div>
+                </div>
+                
+                
                 <!-- Rental section -->
             <form method="post" action="../components/add_cart.php">
                 <div class="rental">
@@ -142,7 +231,18 @@ if (isset($_GET['id'])) {
         document.getElementById('rent-from').addEventListener('change', checkDateSelection);
         document.getElementById('rent-to').addEventListener('change', checkDateSelection);
 
-
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.rating .star');
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    stars.forEach(s => s.classList.remove('selected'));
+                    star.classList.add('selected');
+                    const ratingValue = star.getAttribute('data-value');
+                    // Save rating value, e.g., send it to the server or use it in the form
+                    console.log('Rating value:', ratingValue);
+                });
+            });
+        });
     </script>
 </body>
 </html>
