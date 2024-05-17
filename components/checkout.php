@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checked_cart'])) {
                     }
 
                     // Insert order item into database with status
-                    $insert_item_query = "INSERT INTO order_item (order_id, product_id, quantity, start_date, end_date, status) VALUES (?, ?, ?, ?, ?, 'Processing')";
+                    $insert_item_query = "INSERT INTO order_item (order_id, product_id, quantity, start_date, end_date, status) VALUES (?, ?, ?, ?, ?, 'Pending')";
                     $stmt_item = $conn->prepare($insert_item_query);
                     $stmt_item->bind_param("iiiss", $orderId, $product_id, $quantity, $start_date, $end_date);
                     $stmt_item->execute();

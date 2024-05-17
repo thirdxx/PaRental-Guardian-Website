@@ -3,7 +3,6 @@ session_start();
 include "../components/db_connect.php";
 date_default_timezone_set("Asia/Manila");
 
-
 if (isset($_SESSION['id'])) {
 
 function fetchCategories($conn) {
@@ -39,6 +38,15 @@ function fetchProducts($conn, $searchText = "", $categoryName = "", $sortOption 
             break;
         case 'price-low-high':
             $sql .= " ORDER BY price ASC";
+            break;
+        case 'top-sales':
+            $sql .= " ORDER BY counter DESC";
+            break;
+        case 'top-rated':
+            $sql .= " ORDER BY total_ratings DESC";
+            break;
+        case 'latest':
+            $sql .= " ORDER BY id DESC";
             break;
         default:
             // Default sorting option if invalid or not specified
@@ -118,7 +126,6 @@ if (!empty($products)) {
     </div>';
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,9 +155,9 @@ if (!empty($products)) {
             <div class="sort-filter-row">
                 <div class="sort-buttons">
                     <p><i class="fas fa-arrow-up-wide-short"></i>Sort by</p>
-                    <button>Relevance</button>
-                    <button>Latest</button>
-                    <button>Top Sales</button>
+                    <button id="relevanceButton">Top Rated</button>
+                    <button id="latestButton">Latest</button>
+                    <button id="topSalesButton">Top Sales</button>
                     <select onchange="changeSort(this)">
                         <option disabled selected>Price</option>
                         <option value="price-high-low">Price: High to Low</option>
@@ -179,8 +186,8 @@ if (!empty($products)) {
 
     <script src="../js/addtocart.js"></script>
     <script>
-         // Function to redirect to search_product.php when search button is clicked or Enter key is pressed
-         function redirectToSearch() {
+        // Function to redirect to search_product.php when search button is clicked or Enter key is pressed
+        function redirectToSearch() {
             var searchText = document.getElementById('searchInput').value.trim();
             if (searchText !== '') {
                 window.location.href = 'search_products.php?search=' + encodeURIComponent(searchText);
@@ -219,14 +226,35 @@ if (!empty($products)) {
             window.location.href = 'search_products.php?' + searchParams.toString();
         }
 
+        // Event listener for "Top Rated" button click
+        document.getElementById('relevanceButton').addEventListener('click', function() {
+            var searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('sort', 'top-rated');
+            window.location.href = window.location.pathname + '?' + searchParams.toString();
+        });
+
+        // Event listener for "Latest" button click
+        document.getElementById('latestButton').addEventListener('click', function() {
+            var searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('sort', 'latest');
+            window.location.href = window.location.pathname + '?' + searchParams.toString();
+        });
+
+        // Event listener for "Top Sales" button click
+        document.getElementById('topSalesButton').addEventListener('click', function() {
+            var searchParams = new URLSearchParams(window.location.search);
+           
+            searchParams.set('sort', 'top-sales');
+            window.location.href = window.location.pathname + '?' + searchParams.toString();
+        });
     </script>
 
 </body>
 </html>
-<?php 
-}else{
-  header("Location: ../login/signin.php?error=You need to login first");
 
+<?php 
+} else {
+  header("Location: ../login/signin.php?error=You need to login first");
   exit();
 }
 ?>

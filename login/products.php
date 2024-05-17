@@ -101,7 +101,7 @@ if(isset($_GET['name'])) {
             <div class="sort-filter-row">
                 <div class="sort-buttons">
                     <p><i class="fas fa-arrow-up-wide-short"></i>Sort by</p>
-                    <button>Relevance</button>
+                    <button>Top Rated</button>
                     <button>Latest</button>
                     <button>Top Sales</button>
                     

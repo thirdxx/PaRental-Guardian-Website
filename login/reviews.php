@@ -31,7 +31,7 @@ if (isset($_SESSION['id'])) {
       order_item.start_date AS start_date,
       order_item.end_date AS end_date,
       order_item.status AS order_status,
-      (DATEDIFF(order_item.end_date, order_item.start_date) + 1) * products.price * order_item.quantity AS subtotal
+      (DATEDIFF(order_item.end_date, order_item.start_date)) * products.price * order_item.quantity AS subtotal
     FROM 
       orders 
     JOIN 
@@ -117,7 +117,7 @@ if (isset($_SESSION['id'])) {
                       if ($currentOrderId != $itemRow['order_id']) {
                           if ($currentOrderId !== null) {
                             
-                              // Close the previous order total row
+                              
                               echo "
                               <tr style='background-color: #f3ffe3;'>
                                 <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
@@ -126,6 +126,7 @@ if (isset($_SESSION['id'])) {
                                 <td>₱" . number_format($total, 2) . "</td>
                                 <td></td>
                               </tr>";
+                              
                               $total = 0; // Reset total for the next order
                           }
                           $currentOrderId = $itemRow['order_id'];
@@ -145,7 +146,7 @@ if (isset($_SESSION['id'])) {
                 <td><?php echo $itemRow['order_status']; ?></td>
                 <td >
                 <?php 
-                    if ($itemRow['order_status'] == "Returned") {
+                    if (($itemRow['order_status'] == "Returned") || ($itemRow['order_status'] == "Delivered")) {
                         echo "<a class='againbutton'  href='rate.php?&order_id=" . urlencode($itemRow['order_id']) . "&product_id=" . urlencode($itemRow['product_id']) . "&product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
                     } else {
                         echo "<a class='againbutton'  href='product_details.php?id=" . urlencode($itemRow['product_id']) . "'>Rent Again</a>";
