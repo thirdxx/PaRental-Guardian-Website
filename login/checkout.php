@@ -99,7 +99,7 @@ if (isset($_SESSION['id'])) {
   <div class="card-container">
   <div class="cardcheckout">
     <h2>Billing Details</h2>
-    <form method="post" action="../components/checkout.php">
+    <form id="billingForm" method="post" action="../components/checkout.php">
         <div class="heading-textarea">
             <h5 required>First Name<span class="required"></span></h5>
             <textarea name="firstname" required><?php echo $firstName; ?></textarea>
@@ -219,20 +219,27 @@ if (isset($_SESSION['id'])) {
     <div class="payment-method">
       <h3>Payment Method</h3>
 <div class="payment-methods-container" required>
-   <label><input type="radio" name="payment_method" value="GCash" onclick="showGcashModal()"> GCash</label>
-   <div id="fileUploadContainer" style="display: none; font-weight: bold;">Upload GCash Receipt
-        <input type="file" id="fileInput" name="payment_proof" accept="image/*, .pdf">
-    </div>
-  <div id="gcashModal" class="modal">
-        <div class="modal-content"  style=" max-width: 250px; margin-top:70px; margin-bottom:-50px;">
-            <span class="close" onclick="closeGcashModal()">&times;</span>
-            <img src="../images/gcash.jpg" alt="GCash QR Code" style=" max-width: 250px;"><br><br>
-            <p>Scan this Gcash QR code to place your order.</p>
+            <label>
+                <input id="paymentMethod" type="radio" name="payment_method" value="GCash" onclick="showGcashModal()"> GCash
+            </label>
+            <div id="fileUploadContainer" style="display: none; font-weight: bold;">
+                Upload GCash Receipt
+                <input type="file" id="fileInput" name="payment_proof" accept="image/*, .pdf">
+            </div>
+            <div id="gcashModal" class="modal">
+                <div class="modal-content" style="max-width: 250px; margin-top: 70px; margin-bottom: -50px;">
+                    <span class="close" onclick="closeGcashModal()">&times;</span>
+                    <img src="../images/gcash.jpg" alt="GCash QR Code" style="max-width: 250px;"><br><br>
+                    <p>Scan this Gcash QR code to place your order.</p>
+                </div>
+            </div>
+            <label>
+                <input type="radio" id="codButton" name="payment_method" value="Cash On Delivery" onclick="hideFileUploadContainer()"> Cash on Delivery
+            </label>
         </div>
-    </div>
-  <label><input type="radio" name="payment_method" value="Cash On Delivery"> Cash on Delivery</label>
-</div>
- <button type="button" class="checkout-btn" onclick="openTermsModal()">Place order</button>
+ <button type="button" id="placeOrderButton" class="checkout-btn" onclick="validateForm()">Place order</button>
+ <p id="errorMessage" style="color: red; display: none;">Please fill out the required fields and select payment method.</p>
+ <p id="paymenterrorMessage" style="color: red; display: none;">Please upload your GCash receipt.</p>
  
 <div id="termsModal" class="modal">
   <div class="modal-content">
@@ -291,16 +298,19 @@ if (isset($_SESSION['id'])) {
 <br>Company Representative Name (Printed): ____________________
 
 <br>Date: ________________________</p>
+<input type="checkbox" id="agreeCheckbox" style="margin-bottom: 20px;"> I Agree<br>
     <button type="button" class="modal-button"onclick="closeTermsModal()">Cancel</button>
-    <button  type="button" class="modal-button-confirm" style="background-color:midnightblue"onclick="conditionsModal(); downloadPDF()">Print</button>
-    <button  type="button" class="modal-button-confirm"onclick="showConfirmationModal()">Agree</button>
+    <button  type="button" id="printButton" class="modal-button-confirm" style="background-color:midnightblue"onclick="conditionsModal(); downloadPDF()" disabled>Print</button>
+    <!-- <button  type="button" class="modal-button-confirm"onclick="showConfirmationModal()">Agree</button> -->
+    
+    <!-- <label for="agreeCheckbox">I Agree</label> -->
   </div>
 </div>
 
 <div id="conditionsModal" class="modal">
   <div class="modal-content">
     <h2>Terms & Conditions</h2>
-    <p>Please hand this over to our staff during the delivery process.<br>Thank you</p>
+    <p>Please hand this over to our staff during the delivery process.<br>Thank you!</p>
     <button type="button" class="modal-button"onclick="openTermsModal()">Back</button>
     <button  type="button" class="modal-button-confirm"onclick="showConfirmationModal()">Continue</button>
   </div>
@@ -319,7 +329,7 @@ if (isset($_SESSION['id'])) {
   <div class="modal-content">
     <h2>Order Confirmed</h2>
     <p>Your order has been successfully confirmed.</p>
-    <button type="submit" class="modal-button-confirm" onclick="closeAllModals()">Close</button>
+    <button type="submit" href="../login/purchase.php"class="modal-button-confirm" onclick="closeAllModals()">Close</button>
   </div>
 </div>
 </form>
@@ -381,26 +391,17 @@ if (isset($_SESSION['id'])) {
     var total = 0; 
     var fee = 0;
 
-    basePriceElements.forEach(function(basePriceElement, index) {
-        var day = 0;
-        var multiplier = 0
-        var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
-        var category = parseInt(basePriceElement.getAttribute('data-category'));
-        var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
-        
-        
-        if (category === 10) {
+      basePriceElements.forEach(function(basePriceElement, index) {
+          var day = 0;
+          var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
+          day = Math.ceil(days); 
+          var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
+          var subtotal = basePrice * quantity * day;
 
-          multiplier = Math.ceil(days / 5);
-        } else {
-          multiplier = Math.ceil(days);
-        }
-        day = Math.ceil(days);
+          
 
-        var subtotal = basePrice * quantity * multiplier;
-
-        // Update total
-        total += subtotal;
+          // Update total
+          total += subtotal;
 
         if (!isNaN(day)) {
             // Set day text for display
@@ -445,6 +446,8 @@ if (isset($_SESSION['id'])) {
         var fileUploadContainer = document.getElementById("fileUploadContainer");
         modal.style.display = "block";
           fileUploadContainer.style.display = "block";
+
+          
     }
 
     // Function to close the GCash modal
@@ -462,9 +465,54 @@ if (isset($_SESSION['id'])) {
             anchor.download = 'Parental Terms & Conditions.pdf';
             anchor.click();
         }
-</script>
-  </div>
-</div>
+         const checkbox = document.getElementById('agreeCheckbox');
+        const printButton = document.getElementById('printButton');
+
+        checkbox.addEventListener('change', function() {
+            printButton.disabled = !checkbox.checked;
+        });
+        function hideFileUploadContainer() {
+            const fileUploadContainer = document.getElementById('fileUploadContainer');
+            fileUploadContainer.style.display = 'none';
+        }
+        
+        function validateForm() {
+            const form = document.getElementById('billingForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const paymenterrorMessage = document.getElementById('paymenterrorMessage');
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+            const fileInput = document.getElementById('fileInput');
+            
+            if (!form.checkValidity() || !paymentMethod) {
+                errorMessage.style.display = 'block';
+            }
+            if (document.querySelector('input[name="payment_method"]:checked').value === 'GCash' && fileInput.files.length === 0) {
+                paymenterrorMessage.style.display = 'block';
+                placeOrderButton.disabled = true;
+            } else {
+                errorMessage.style.display = 'none';
+                paymenterrorMessage.style.display = 'none';
+              
+                openTermsModal(); 
+            }
+        }
+        const fileInput = document.getElementById('fileInput');
+        const placeOrderButton = document.getElementById('placeOrderButton');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length === 0) {
+                console.log("Please upload your GCash receipt.");
+                placeOrderButton.disabled = true;
+            } else {
+                placeOrderButton.disabled = false;
+            }
+        });
+                const codButton = document.getElementById('codButton');
+                codButton.addEventListener('click', hideFileUploadContainer);
+              
+        </script>
+          </div>
+        </div>
 
       
         </div>

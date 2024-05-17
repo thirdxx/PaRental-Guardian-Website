@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checked_cart'])) {
                 }
             }
             // Order successfully inserted, redirect to a success page or do any other necessary actions
-            header("Location: ../login/homepage.php");
+            header("Location: ../login/purchase.php");
             exit();
         } else {
             // Order insertion failed, handle the error appropriately

@@ -72,7 +72,6 @@ if (isset($_SESSION['id'])) {
           </div>
           <div class="button-group" style="grid-column: span 2;">
             <button class="submit"type="submit" onclick="">Submit</button>
-            <button class="reset" type="reset">Reset</button>
 
         </form>
       </div>

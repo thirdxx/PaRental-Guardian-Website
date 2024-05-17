@@ -156,7 +156,7 @@ if (isset($_SESSION['id'])) {
                 if ($itemRow['order_status'] == "Returned") {
                     echo "<a class='againbutton'  href='rate.php?product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
                 } else {
-                    echo "<a class='againbutton'>Rent Again</a>";
+                    
                 }
                 ?>
                 </td>
