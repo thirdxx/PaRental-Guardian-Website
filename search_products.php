@@ -81,6 +81,14 @@ if (!empty($products)) {
     $counter = 0;
     foreach ($products as $product) {
         $counter++;
+        $counterProduct = $product['counter'];
+            if ($counterProduct == 0){
+                $ave_rating = 0;
+            }else{
+                $ratings = $product['total_ratings'];
+                $ave_rating = $ratings / $counterProduct;
+            }
+
 
         if ($counter % 4 == 1) {
             $cards_html .= '<div class="cards">';
@@ -91,6 +99,7 @@ if (!empty($products)) {
             <a href="product_details.php?id=' . $product['id'] . '"><img class="card-img" src="images/products/' . $product["image"] . '" alt="' . $product["name"] . '"></a>
             <h3>' . $product["name"] . '</h3>
             <p>₱' . $product["price"] . '</p>
+            <p>' . number_format($ave_rating, 1) . '⭐</p>
             <a href="product_details.php?id=' . $product['id'] . '" class="addtocart">Add to cart <i class="fas fa-arrow-right"></i></a>
             </div>';
 

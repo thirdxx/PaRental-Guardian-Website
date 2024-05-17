@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>Package Details</title>
     <link rel="stylesheet" href="./css/chair_item.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="./js/totalprice.js"></script>
@@ -51,12 +51,12 @@ if (isset($_GET['id'])) {
                     <img class="card-img" src="./images/products/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
                 </div>
                 <div class="details-column">
-                    <h2><?php echo $product['name']; ?></h2>
-                    <h4 class="product-price" data-price="<?php echo $product['price']; ?>">Price: ₱<?php echo $product['price']; ?></h4>
+                    <h2><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h2>
+                    <h4 class="product-price" data-price="<?php echo htmlspecialchars($product['price'], ENT_QUOTES, 'UTF-8'); ?>">Price: ₱<?php echo htmlspecialchars($product['price'], ENT_QUOTES, 'UTF-8'); ?></h4>
                     <!-- Additional product details -->
-                    <h5>Per week</h5><br>
+                    <h5>Per 5 days</h5><br>
                     <div>
-                        <h5>Description:</h5>
+                        <h5>Includes:</h5>
                         <?php 
                         // Retrieve the items string
                         $items = $product['color'];
@@ -70,14 +70,11 @@ if (isset($_GET['id'])) {
                         }
                         ?>
                     </div>
-                    <p>Material: <?php echo $product['material']; ?></p>
-                    <p>Dimension: <?php echo $product['dimension']; ?></p><br>
-                    <p>Stock: <?php echo $product['stock']; ?></p>
-                    
                 </div>
+
                 <!-- Rental section -->
                 <div class="rental">
-                    <h5>Minimum Rental Duration: 1 day</h5>
+                    <h5>Minimum Rental Duration: 1 days</h5>
                     <div class="rental-section">
                     <label for="rent-from">Rent from:</label>
                     <input type="date" id="rent-from" name="rent-from" onchange="calculatePrice(); disablePastDates()">
@@ -86,11 +83,11 @@ if (isset($_GET['id'])) {
                     <label for="rent-to">Rent to:</label>
                     <input type="date" id="rent-to" name="rent-to" onchange="calculatePrice()">
                     </div>
-                    <div class="quantity">
+                    <!-- <div class="quantity">
                     <button class="minus" onclick="decrementQuantity()">-</button>
                     <input id="quantity" type="number" value="1" min="1" onchange="calculatePrice()">
                     <button class="plus" onclick="incrementQuantity()">+</button>
-                    </div>
+                    </div> -->
                     <h4>Total Price: <span id="total-price">₱<?php echo $product['price']; ?></span></h4> 
                     <button class="addtocart" onclick="redirectToDashboard()"">Add to cart <i class="fas fa-arrow-right"></i></button>
                 </div>

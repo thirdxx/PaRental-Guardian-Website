@@ -5,12 +5,40 @@ date_default_timezone_set("Asia/Manila");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checked_cart'])) {
   $checked_carts = $_POST['checked_cart'];
+
   // Loop through each checked cart item
   foreach ($checked_carts as $cart_id) {
       // Check if the cart item exists in the database
       $cart_id = intval($cart_id);
       $quantity = intval($_POST['cart'][$cart_id]['quantity']);
-      $subtotal = $_POST['cart'][$cart_id]['product_price'] * $quantity * $_POST['cart'][$cart_id]['day'];
+      $price = floatval($_POST['cart'][$cart_id]['product_price']);
+      $days = intval($_POST['cart'][$cart_id]['day']);
+
+      // Retrieve the product_id from the cart
+      $product_query = "SELECT product_id FROM cart WHERE id = ?";
+      $stmt = $conn->prepare($product_query);
+      $stmt->bind_param("i", $cart_id);
+      $stmt->execute();
+      $stmt->bind_result($product_id);
+      $stmt->fetch();
+      $stmt->close();
+
+      // Retrieve the category_id from the products table
+      $category_query = "SELECT category_id FROM products WHERE id = ?";
+      $stmt = $conn->prepare($category_query);
+      $stmt->bind_param("i", $product_id);
+      $stmt->execute();
+      $stmt->bind_result($category_id);
+      $stmt->fetch();
+      $stmt->close();
+
+      // Calculate the subtotal based on the category
+      if ($category_id == 10) {
+          $multiplier = ceil($days / 5);  // Ceiling function applied to (days / 5)
+          $subtotal = $price * $quantity * $multiplier;  // Category 10: multiply by the ceiling of (days / 5)
+      } else {
+          $subtotal = $price * $quantity * $days;  // Default calculation
+      }
 
       // Prepare and execute the update query
       $update_query = "UPDATE cart SET quantity = ?, subtotal = ? WHERE id = ?";
@@ -130,7 +158,7 @@ if (isset($_SESSION['id'])) {
             foreach ($checked_carts as $cart_id) {
               $cart_id = intval($cart_id);
               // Modify the query to fetch product name from products table
-              $query = "SELECT cart.id, cart.quantity, cart.subtotal, products.name, products.price, cart.start_date, cart.end_date 
+              $query = "SELECT cart.id, cart.quantity, cart.subtotal, products.name, products.price, cart.start_date, cart.end_date, products.category_id 
                         FROM cart 
                         INNER JOIN products ON cart.product_id = products.id 
                         WHERE cart.id = $cart_id";
@@ -143,20 +171,25 @@ if (isset($_SESSION['id'])) {
                   $product_name = $row['name'];
                   $quantity = $row['quantity'];
                   $subtotal = $row['subtotal'];
+                  $category_id = $row['category_id'];
                   $total += $subtotal;
                   $start_date = new DateTime($row['start_date']);
                   $end_date = new DateTime($row['end_date']);
                   $interval = $start_date->diff($end_date);
                   $day = ceil($interval->days);
+          
+                  // Determine if it is a Package or Product
+                  $item_type = $category_id == 10 ? "Package" : "Product";
+          
                   echo '<tr>';
-                  echo '<td>' . $product_name . ' <span class="product-price" data-price="' . $product_price . '" ></span> [ ' . $product_price . ' ] <span class="quantity"> x ' . $quantity . ' </span></td>';
+                  echo '<td>' . $product_name . ' <br><span class="product-price" data-price="' . $product_price . '" data-category="' . $category_id . '">' . $item_type . '</span> [ ' . $product_price . ' ] <span class="quantity"> x ' . $quantity . ' </span></td>';
                   echo '<td><span class="day" id="day">' . $day . ' Day/s</span></td>';
                   echo '<td><span id="total-price">₱ ' . number_format($subtotal, 2) . '</td>';
                   echo '</tr>';
                   echo '<input type="hidden" name="checked_cart[]" value="' . $cart_id . '">';
                   echo '<input class="new_day" type="hidden" id="new_day" name="cart[' . $cart_id . '][day]" >';
               }
-          }          
+          }       
               // Display total
               echo '<tr>';
               echo '<td class="subtotal">Cart Total</td>';
@@ -338,50 +371,60 @@ if (isset($_SESSION['id'])) {
     }
 
     function calculateDate() {
-      var rentFrom = new Date(document.getElementById("rent-from").value);
-      var rentTo = new Date(document.getElementById("rent-to").value);
-      var days = Math.ceil((rentTo - rentFrom) / (1000 * 60 * 60 * 24));
-      var basePriceElements = document.querySelectorAll('.product-price');
-      var newDayInputs = document.querySelectorAll('.new_day');
-      var quantityElements = document.querySelectorAll('.quantity');
-      var subtotalElements = document.querySelectorAll('#total-price');
-      var total = 0; 
-      var fee = 0;
+    var rentFrom = new Date(document.getElementById("rent-from").value);
+    var rentTo = new Date(document.getElementById("rent-to").value);
+    var days = Math.ceil((rentTo - rentFrom) / (1000 * 60 * 60 * 24));
+    var basePriceElements = document.querySelectorAll('.product-price');
+    var newDayInputs = document.querySelectorAll('.new_day');
+    var quantityElements = document.querySelectorAll('.quantity');
+    var subtotalElements = document.querySelectorAll('#total-price');
+    var total = 0; 
+    var fee = 0;
 
-      basePriceElements.forEach(function(basePriceElement, index) {
-          var day = 0;
-          var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
-          day = Math.ceil(days); 
-          var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
-          var subtotal = basePrice * quantity * day;
+    basePriceElements.forEach(function(basePriceElement, index) {
+        var day = 0;
+        var multiplier = 0
+        var basePrice = parseFloat(basePriceElement.getAttribute('data-price'));
+        var category = parseInt(basePriceElement.getAttribute('data-category'));
+        var quantity = parseInt(quantityElements[index].innerText.split('x')[1].trim());
+        
+        
+        if (category === 10) {
 
-          
+          multiplier = Math.ceil(days / 5);
+        } else {
+          multiplier = Math.ceil(days);
+        }
+        day = Math.ceil(days);
 
-          // Update total
-          total += subtotal;
+        var subtotal = basePrice * quantity * multiplier;
 
-          if (!isNaN(day)) {
-              // Set day text for display
-              var dayText = "" + day + " Day/s";
-              var dayElements = document.querySelectorAll('.day');
-              dayElements[index].innerText = dayText;
+        // Update total
+        total += subtotal;
 
-              // Update subtotal for display
-              subtotalElements[index].innerText = '₱' + subtotal.toFixed(2);
+        if (!isNaN(day)) {
+            // Set day text for display
+            var dayText = "" + day + " Day/s";
+            var dayElements = document.querySelectorAll('.day');
+            dayElements[index].innerText = dayText;
 
-              // Set day value for form submission
-              newDayInputs[index].value = day;
-          }
-      });
+            // Update subtotal for display
+            subtotalElements[index].innerText = '₱' + subtotal.toFixed(2);
 
-      // Update overall total display
-      document.getElementById('semi-total').innerText = '₱ ' + total.toFixed(2);
-      fee = total * 0.12; 
-      document.getElementById('labor-fee').innerText = '₱ ' + fee.toFixed(2);
-      total = total + fee;
-      document.getElementById('overall-total').innerText = '₱ ' + total.toFixed(2);
-      document.querySelector('input[name="totalprice"]').value = total.toFixed(2);
-    }
+            // Set day value for form submission
+            newDayInputs[index].value = day;
+        }
+    });
+
+    // Update overall total display
+    document.getElementById('semi-total').innerText = '₱ ' + total.toFixed(2);
+    fee = total * 0.12; 
+    document.getElementById('labor-fee').innerText = '₱ ' + fee.toFixed(2);
+    total = total + fee;
+    document.getElementById('overall-total').innerText = '₱ ' + total.toFixed(2);
+    document.querySelector('input[name="totalprice"]').value = total.toFixed(2);
+}
+
 
 
     function disablePastDates() {

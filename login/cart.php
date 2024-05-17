@@ -54,7 +54,7 @@ if (isset($_SESSION['id'])) {
         <?php
         // Fetch cart items for the current user from the database
         $user_id = $_SESSION['id']; // Assuming you have user ID stored in session
-        $query = "SELECT cart.*, products.name AS product_name, products.image AS product_image, products.color AS product_color, products.price AS product_price, cart.start_date AS start_date, cart.end_date AS end_date FROM cart 
+                    $query = "SELECT cart.*, products.name AS product_name, products.image AS product_image, products.color AS product_color, products.price AS product_price, products.category_id AS category_id, cart.start_date AS start_date, cart.end_date AS end_date FROM cart 
                   INNER JOIN products ON cart.product_id = products.id
                   WHERE cart.user_id = $user_id";
         $result = mysqli_query($conn, $query);
@@ -77,6 +77,15 @@ if (isset($_SESSION['id'])) {
                 echo '<td><img src="../images/products/' . $row['product_image'] . '" alt="' . $row['product_name'] . '"></td>'; // Fetching the image URL from the database
                 echo '<td class="product-details">' . $row['product_name'] . '<br>From: ' . $row['start_date'] . '—To: ' . $row['end_date'] . ' <br>Color: ' . $row['product_color'] . '</td>'; // Fetching the product name from the database
                 echo '<td class="product-price">₱' . $row['product_price'] . ' x <br>' . $day . ' Day/s</td>'; // Fetching price and the number of day
+                
+                if ($row['category_id'] == 10) {
+                echo '<td>';
+                echo '<div style="display: inline-block;">';
+                echo '<input class="textarea quantity-input" name="cart[' . $row['id'] . '][quantity]" type="number" value="' . $row['quantity'] . '" min="1"><p>Set</p>';  
+                echo '</div>';
+                echo '</td>';
+                
+                }else{
                 echo '<td>';
                 echo '<div class="quantity">';
                 echo '<button type="button" class="minus" onclick="decrementQuantity(this.parentNode.querySelector(\'.textarea\'))">-</button>';
@@ -84,6 +93,7 @@ if (isset($_SESSION['id'])) {
                 echo '<button type="button" class="plus" onclick="incrementQuantity(this.parentNode.querySelector(\'.textarea\'))">+</button>';
                 echo '</div>';
                 echo '</td>';
+                }
                 echo '<td class="subtotal" name="cart[' . $row['id'] . '][subtotal]">₱' . $row['subtotal'] . '</td>';
                 echo '<td class="day" style="display: none;">' . $day . '</td>'; // Hidden field for day 
                 echo '<td><button type="button" class="delete-button" data-id="' . $row['id'] . '"><i class="fas fa-trash"></i></button></td>';

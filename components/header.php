@@ -28,9 +28,9 @@
     </li>
     <li class="dropdown">
       <a href="packages.php">Packages</a>
-      <div class="dropdown-content">
+      <!-- <div class="dropdown-content">
         <div class="column">
-          <a href="/packages/package1.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 1 </a>
+          <a href="/packages/packages.php"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 1 </a>
           <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 2 </a>
           <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 3 </a>
         </div>
@@ -43,7 +43,7 @@
           <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i>Package 7 </a>
           <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i>Package 8 </a>
         </div>
-      </div>
+      </div> -->
     </li>
     <li><a href="about.php">About</a></li>
     <li><a href="contact.php">Contact</a></li>

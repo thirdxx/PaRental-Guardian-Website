@@ -29,6 +29,14 @@ if(isset($_GET['name'])) {
     if (!empty($products)) {
         foreach ($products as $product) {
             $counter++;
+            $counterProduct = $product['counter'];
+            if ($counterProduct == 0){
+                $ave_rating = 0;
+            }else{
+                $ratings = $product['total_ratings'];
+                $ave_rating = $ratings / $counterProduct;
+            }
+
 
             if ($counter % 4 == 1) {
                 $cards_html .= '<div class="cards">';
@@ -36,9 +44,10 @@ if(isset($_GET['name'])) {
 
             $cards_html .= '
                 <div class="card">
-                <a href="product_details.php?id=' . $product['id'] . '"><img class="card-img" src="images/' . $product["image"] . '" alt="' . $product["name"] . '"></a>
+                <a href="product_details.php?id=' . $product['id'] . '"><img class="card-img" src="images/products/' . $product["image"] . '" alt="' . $product["name"] . '"></a>
                 <h3>' . $product["name"] . '</h3>
                 <p>₱' . $product["price"] . '</p>
+                <p>' . number_format($ave_rating, 1) . '⭐</p>
                 <a href="product_details.php?id=' . $product['id'] . '" class="addtocart">Add to cart <i class="fas fa-arrow-right"></i></a>
                 </div>';
 
@@ -84,22 +93,7 @@ if(isset($_GET['name'])) {
             <div class="banner">
                 <h2><?php echo $h2_value; ?></h2>
             </div>
-            <div class="sort-filter-row">
-                <div class="sort-buttons">
-                    <p><i class="fas fa-arrow-up-wide-short"></i>Sort by</p>
-                    <button>Relevance</button>
-                    <button>Latest</button>
-                    <button>Top Sales</button>
-                    
-                </div>
-                <div class="filter-dropdown">
-                    <select onchange="changeSort(this)">
-                        <option disabled selected>Price</option>
-                        <option value="price-high-low">Price: High to Low</option>
-                        <option value="price-low-high">Price: Low to High</option>
-                    </select>
-                </div>
-            </div>
+            
 
             <!-- Product cards container -->
             <div id="productContainer">

@@ -34,10 +34,10 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>Package Details</title>
     <link rel="stylesheet" href="../css/chair_item.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="../js/totalprice.js"></script>
+    <!-- <script src="../js/totalprice.js"></script> -->
     <script src="../js/addtocart.js"></script>
     <style>
         .notification {
@@ -130,7 +130,7 @@ if (isset($_GET['id'])) {
                 <div class="details-column">
                     <h2><?php echo $product['name']; ?></h2>
                     <h4 class="product-price" data-price="<?php echo $product['price']; ?>">Price: ₱<?php echo $product['price']; ?></h4>
-                    <h5>Per week</h5><br>
+                    <h5>for 5 Days</h5><br>
                     <div>
                         <h5>Description:</h5>
                         <?php 
@@ -146,9 +146,7 @@ if (isset($_GET['id'])) {
                         }
                         ?>
                     </div>
-                    <p>Material: <?php echo $product['material']; ?></p>
-                    <p>Dimension: <?php echo $product['dimension']; ?></p><br>
-                    <p>Stock: <?php echo $available_stock; ?></p>
+                    
                     
                     <h3>Reviews</h3>
                         <div class="scroll"> 
@@ -196,7 +194,7 @@ if (isset($_GET['id'])) {
                 <!-- Rental section -->
             <form method="post" action="../components/add_cart.php">
                 <div class="rental">
-                    <h5>Minimum Rental Duration: 1 day</h5>
+                    <h5>Minimum Rental Duration: 1 days</h5>
                     <input type="hidden" name="subtotal" id="total-price-display">
                     <input type="hidden" name="productId" value="<?php echo $productId = $conn->real_escape_string($_GET['id']); ?>">
                     <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
@@ -207,11 +205,7 @@ if (isset($_GET['id'])) {
                     <div class="rental-section">
                     <label for="rent-to">Rent to:</label>
                     <input type="date" id="rent-to" name="rent-to" onchange="calculatePrice()">
-                    </div>
-                    <div class="quantity">
-                    <button type="button" class="minus" onclick="decrementQuantity()">-</button>
-                    <input name="quantity" id="quantity" type="number" value="1" min="1" onchange="calculatePrice()">
-                    <button type="button" class="plus" onclick="incrementQuantity()">+</button>
+                    <input name="quantity" id="quantity" type="hidden" value="1" min="1" onchange="calculatePrice()">
                     </div>
                     <h4>Total Price: <span id="total-price">₱<?php echo $product['price']; ?></span></h4>
                     <button type="submit" name="submit" class="addtocart" onclick="addToCart(this)" id="add-to-cart-btn" disabled>Add to cart <i class="fas fa-arrow-right"></i></button>
@@ -257,6 +251,72 @@ if (isset($_GET['id'])) {
                 });
             });
         });
+        function calculatePrice() {
+            var rentFrom = new Date(document.getElementById("rent-from").value);
+            var rentTo = new Date(document.getElementById("rent-to").value);
+            var days = Math.ceil((rentTo - rentFrom) / (1000 * 60 * 60 * 24));
+            var basePrice = parseFloat(document.querySelector('.product-price').getAttribute('data-price'));
+            var weeks = Math.ceil(days / 5); // Calculate number of weeks
+            var quantity = parseInt(document.getElementById("quantity").value);
+            
+            console.log("Rent from:", rentFrom);
+            console.log("Rent to:", rentTo);
+            console.log("Days:", days);
+            console.log("Base price:", basePrice);
+            console.log("Weeks:", weeks);
+            console.log("Quantity:", quantity);
+
+            if(isNaN(weeks)){
+            var totalPrice = basePrice * quantity;
+            console.log("total:", totalPrice);
+            document.getElementById("total-price").innerText = "₱" + totalPrice.toFixed(2);
+            document.getElementById("total-price-display").value = totalPrice.toFixed(2);
+            } else {
+            var totalPrice = basePrice * weeks * quantity;
+            console.log("total:", totalPrice);
+            document.getElementById("total-price").innerText = "₱" + totalPrice.toFixed(2);
+            document.getElementById("total-price-display").value = totalPrice.toFixed(2);
+            document.querySelector('.addtocart').setAttribute('onclick', 'addToCart(this)');
+            }
+            
+        }
+
+        function decrementQuantity() {
+            var quantityInput = document.getElementById("quantity");
+            if (parseInt(quantityInput.value) > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+            calculatePrice();
+            }
+        }
+
+        function incrementQuantity() {
+            var quantityInput = document.getElementById("quantity");
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+            calculatePrice();
+        }
+
+        function addToCart() {
+            // Implement add to cart functionality here
+            alert("Added to cart!");
+        }
+
+        function disablePastDates() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('rent-from').setAttribute('min', today);
+            document.getElementById('rent-to').setAttribute('min', today);
+            
+            var rentFromDate = document.getElementById('rent-from').value;
+            var rentToDateInput = document.getElementById('rent-to');
+            var rentToDate = new Date(rentFromDate);
+            rentToDate.setDate(rentToDate.getDate() + 1);
+            var minDate = rentToDate.toISOString().split('T')[0];
+            rentToDateInput.setAttribute('min', minDate);
+        }
+        window.onload = function() {
+            disablePastDates();
+        };
+
+
     </script>
 </body>
 </html>

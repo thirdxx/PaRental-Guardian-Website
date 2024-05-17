@@ -62,22 +62,6 @@ echo "<script>console.log('Cart count: " . $cart_count . "');</script>";
                 </li>
                 <li class="dropdown">
                     <a href="../login/packages.php">Packages</a>
-                    <div class="dropdown-content">
-                        <div class="column">
-                            <a href="/packages/package1.html"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 1 </a>
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 2 </a>
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 3 </a>
-                        </div>
-                        <div class="column">
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 4 </a>
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 5 </a>
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i> Package 6 </a>
-                        </div>
-                        <div class="column">
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i>Package 7 </a>
-                            <a href="#"><i class="fas fa-solid fa-box-open" style="margin-right: 5px"></i>Package 8 </a>
-                        </div>
-                    </div>
                 </li>
                 <li><a href="../login/about.php">About</a></li>
                 <li><a href="../login/contact.php">Contact</a></li>

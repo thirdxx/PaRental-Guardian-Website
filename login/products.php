@@ -98,22 +98,7 @@ if(isset($_GET['name'])) {
             <div class="banner">
                 <h2><?php echo $h2_value; ?></h2>
             </div>
-            <div class="sort-filter-row">
-                <div class="sort-buttons">
-                    <p><i class="fas fa-arrow-up-wide-short"></i>Sort by</p>
-                    <button>Top Rated</button>
-                    <button>Latest</button>
-                    <button>Top Sales</button>
-                    
-                </div>
-                <div class="filter-dropdown">
-                    <select onchange="changeSort(this)">
-                        <option disabled selected>Price</option>
-                        <option value="price-high-low">Price: High to Low</option>
-                        <option value="price-low-high">Price: Low to High</option>
-                    </select>
-                </div>
-            </div>
+            
 
             <!-- Product cards container -->
             <div id="productContainer">

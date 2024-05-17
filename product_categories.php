@@ -60,11 +60,13 @@
             if (!empty($categories)) {
                 // Loop through each category and generate the card HTML
                 foreach ($categories as $category) {
-                    // Increment the counter
-                    $counter++;
+                  if($category["id"] != 10){
+                    
+                  // Increment the counter
+                  $counter++;
 
                     // Create a new cards div every four entries
-                    if ($counter % 4 == 1) {
+                  if ($counter % 4 == 1) {
                         $cards_html .= '<div class="cards">';
                     }
 
@@ -80,7 +82,10 @@
                     if ($counter % 4 == 0 || $counter == count($categories)) {
                         $cards_html .= '</div>'; // Close the cards div
                     }
-                }
+
+                  }
+
+              }
             }
 
             ?>
