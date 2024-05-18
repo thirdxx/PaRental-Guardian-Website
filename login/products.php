@@ -50,7 +50,7 @@ if(isset($_GET['name'])) {
             $cards_html .= '
                 <div class="card">
                 <a href="product_details.php?id=' . $product['id'] . '"><img class="card-img" src="../images/products/' . $product["image"] . '" alt="' . $product["name"] . '"></a>
-                <h3>' . $product["name"] . '</h3>
+                <h4>' . $product["name"] . '</h4>
                 <p>₱' . $product["price"] . '</p>
                 <p>' . number_format($ave_rating, 1) . '⭐</p>
                 <a href="product_details.php?id=' . $product['id'] . '" class="addtocart">Add to cart <i class="fas fa-arrow-right"></i></a>
