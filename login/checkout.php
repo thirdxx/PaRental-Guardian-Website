@@ -408,6 +408,8 @@ if (isset($_SESSION['id'])) {
 
         var subtotal = basePrice * quantity * multiplier;
 
+          // Update total
+          total += subtotal;
 
         if (!isNaN(day)) {
             // Set day text for display
