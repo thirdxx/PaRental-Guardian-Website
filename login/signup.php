@@ -68,15 +68,17 @@
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $password = $_POST['password'];
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $salt = base64_encode(random_bytes(32)); // salt password
+    $hashedPassword = password_hash($password . $salt, PASSWORD_DEFAULT); //hash password
 
     $sql = "SELECT MAX(id) FROM users";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $next_id = $row[0] + 1;
 
-    $sql = "INSERT INTO `users`(`id`, `full_name`, `email`, `phone_number`, `password`) 
-      VALUES ('$next_id', '$user_name', '$email', '$phone', '$hashedPassword')";
+    $sql = "INSERT INTO `users`(`id`, `full_name`, `email`, `phone_number`, `password`, `password_salt`) 
+      VALUES ('$next_id', '$user_name', '$email', '$phone', '$hashedPassword', '$salt')";
 
     $rs = mysqli_query($conn, $sql);
 

@@ -18,10 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             if (isset($_SESSION['email_phone'])) {
                 $email_phone = $_SESSION['email_phone'];
-                $hashedPassword = password_hash($new_password, PASSWORD_DEFAULT);
-                $sql = "UPDATE users SET password = ? WHERE email = ? OR phone_number = ?";
+                // Generate a salt
+                $salt = base64_encode(random_bytes(32));
+                $hashedPassword = password_hash($new_password . $salt, PASSWORD_DEFAULT);
+                $sql = "UPDATE users SET password = ?, password_salt = ? WHERE email = ? OR phone_number = ?";
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("sss", $hashedPassword, $email_phone, $email_phone);
+                $stmt->bind_param("ssss", $hashedPassword, $salt, $email_phone, $email_phone);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {

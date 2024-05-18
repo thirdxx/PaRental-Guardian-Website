@@ -16,7 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
+
+         // Retrieve the stored salt
+        $storedSalt = $row['password_salt'];
+
+        // Combine the provided password with the stored salt
+        $saltedPassword = $password . $storedSalt;
+
+        // Verify the password
+        if (password_verify($saltedPassword, $row['password'])) {
             $userId = $row['id'];
             $_SESSION['id'] = $userId; // Set the session ID here
             if (isset($_SESSION['productId'])){
