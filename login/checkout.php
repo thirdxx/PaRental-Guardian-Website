@@ -186,6 +186,7 @@ if (isset($_SESSION['id'])) {
                   echo '<td><span class="day" id="day">' . $day . ' Day/s</span></td>';
                   echo '<td><span id="total-price">₱ ' . number_format($subtotal, 2) . '</td>';
                   echo '</tr>';
+                  echo '<input class="new_subtotal" type="hidden" name="new_subtotal" id="new_subtotal"  >';
                   echo '<input type="hidden" name="checked_cart[]" value="' . $cart_id . '">';
                   echo '<input class="new_day" type="hidden" id="new_day" name="cart[' . $cart_id . '][day]" >';
               }
@@ -332,7 +333,6 @@ if (isset($_SESSION['id'])) {
     <button type="submit" href="../login/purchase.php"class="modal-button-confirm" onclick="closeAllModals()">Close</button>
   </div>
 </div>
-</form>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         disablePastDates();
@@ -388,6 +388,7 @@ if (isset($_SESSION['id'])) {
     var newDayInputs = document.querySelectorAll('.new_day');
     var quantityElements = document.querySelectorAll('.quantity');
     var subtotalElements = document.querySelectorAll('#total-price');
+    var newsubtotalElements = document.querySelectorAll('.new_subtotal');
     var total = 0; 
     var fee = 0;
 
@@ -399,7 +400,6 @@ if (isset($_SESSION['id'])) {
         
         
         if (category === 10) {
-
           multiplier = Math.ceil(days / 5);
         } else {
           multiplier = Math.ceil(days);
@@ -419,7 +419,7 @@ if (isset($_SESSION['id'])) {
 
             // Update subtotal for display
             subtotalElements[index].innerText = '₱' + subtotal.toFixed(2);
-
+            newsubtotalElements[index].value = subtotal.toFixed(2);
             // Set day value for form submission
             newDayInputs[index].value = day;
         }

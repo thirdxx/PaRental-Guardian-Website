@@ -27,11 +27,12 @@ if (isset($_SESSION['id'])) {
       products.image AS product_image,
       products.name AS product_name,
       products.price AS product_price,
+      orders.price AS order_total,
       order_item.quantity AS order_quantity,
       order_item.start_date AS start_date,
       order_item.end_date AS end_date,
       order_item.status AS order_status,
-      (DATEDIFF(order_item.end_date, order_item.start_date)) * products.price * order_item.quantity AS subtotal
+      order_item.subtotal AS subtotal
     FROM 
       orders 
     JOIN 
@@ -115,6 +116,7 @@ if (isset($_SESSION['id'])) {
               if ($orderItemsResult && mysqli_num_rows($orderItemsResult) > 0) {
                   while ($itemRow = mysqli_fetch_assoc($orderItemsResult)) {
                       if ($currentOrderId != $itemRow['order_id']) {
+                        $overall_toral = $itemRow['order_total'];
                           if ($currentOrderId !== null) {
                             
                               
@@ -123,7 +125,7 @@ if (isset($_SESSION['id'])) {
                                 <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
                                 <td colspan='1'></td>
                                 <td class='total'>Total:</td>
-                                <td>₱" . number_format($total, 2) . "</td>
+                                <td>₱" . number_format($overall_toral, 2) . "</td>
                                 <td></td>
                               </tr>";
                               
@@ -137,7 +139,7 @@ if (isset($_SESSION['id'])) {
                       $total += $itemRow['subtotal'];
                       
               ?>
-              <tr>
+                <tr>
                 <td><img src="../images/products/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
                 <td><?php echo $itemRow['product_name']; ?></td>
                 <td>x<?php echo $itemRow['order_quantity']; ?></td>
@@ -163,7 +165,7 @@ if (isset($_SESSION['id'])) {
                     <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
                     <td colspan='1'></td>
                     <td class='total'>Total:</td>
-                    <td >₱" . number_format($total, 2) . "</td>
+                    <td >₱" . number_format($overall_toral, 2) . "</td>
                     <td></td>
                   </tr>";
               } else {

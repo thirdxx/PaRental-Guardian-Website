@@ -52,20 +52,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['checked_cart'])) {
                     $endDate = $row['end_date'];
 
                     // Check if rental dates are provided
-                    if (isset($_POST['rental_start_date']) && isset($_POST['rental_end_date'])) {
+                    if (isset($_POST['rent-from']) && isset($_POST['rent-from'])) {
                         // If rental dates are provided, use them
                         $start_date = $_POST['rent-from'];
                         $end_date = $_POST['rent-to'];
+                        $newsubtotal = $_POST['new_subtotal'];
                     } else {
                         // If rental dates are not provided, use dates from the database
                         $start_date = $startDate;
                         $end_date = $endDate;
+                        $newsubtotal = $subtotal;
+
                     }
 
-                    // Insert order item into database with status
-                    $insert_item_query = "INSERT INTO order_item (order_id, product_id, quantity, start_date, end_date, status) VALUES (?, ?, ?, ?, ?, 'Pending')";
+                    $insert_item_query = "INSERT INTO order_item (order_id, product_id, quantity, start_date, end_date, status, subtotal) VALUES (?, ?, ?, ?, ?, 'Pending', ?)";
                     $stmt_item = $conn->prepare($insert_item_query);
-                    $stmt_item->bind_param("iiiss", $orderId, $product_id, $quantity, $start_date, $end_date);
+                    $stmt_item->bind_param("iiissd", $orderId, $product_id, $quantity, $start_date, $end_date, $newsubtotal);
                     $stmt_item->execute();
 
                     // Update the reserve column in the products table

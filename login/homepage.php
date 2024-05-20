@@ -128,26 +128,26 @@ if (isset($_SESSION['id'])) {
           </div>
            <div class="cards">
       <div class="card">
-        <img class = card-img src="../images/chair.jpg" alt="Package">
-        <h3>Package 1</h3>
+        <img class = card-img src="../images/package/birthday.jpg" alt="Package">
+        <h3>Birthday</h3>
         <p>Our starter package offers everything you need to kickstart your event planning journey. From essential furniture to basic lighting, it provides the foundational elements for a comfortable and memorable occasion.</p>
         <a href="/packages/package1.html">Learn More</a>
       </div>
       <div class="card">
-        <img class = card-img src="../images/table.jpg" alt="Package">
-        <h3>Package 2</h3>
+        <img class = card-img src="../images/package/corporatee.jpg" alt="Package">
+        <h3>Corporate</h3>
         <p>Elevate your event with our intermediate package, which includes upgraded furniture, stylish décor accents, and enhanced lighting options. Perfect for those seeking a touch of sophistication without breaking the budget.</p>
         <a href="#">Learn More</a>
       </div>
       <div class="card">
-        <img class = card-img src="../images/chair.jpg" alt="Package">
-        <h3>Package 3</h3>
+        <img class = card-img src="../images/package/fiesta.jpg" alt="Package">
+        <h3>Fiesta</h3>
         <p>Make a statement with our premium package, featuring luxury furniture, stunning lighting effects, and exquisite décor details. Designed for those who desire an unforgettable event experience with all the bells and whistles.</p>
         <a href="#">Learn More</a>
       </div>
       <div class="card">
-        <img class = card-img src="../images/table.jpg" alt="Package">
-        <h3>Package 4</h3>
+        <img class = card-img src="../images/package/wedding.png" alt="Package">
+        <h3>Wedding</h3>
         <p>Go all out with our deluxe package, offering top-of-the-line amenities, personalized décor options, and unparalleled service. Tailored to meet the highest standards of luxury and extravagance, it promises an event that exceeds expectations.</p>
         <a href="#">Learn More</a>
       </div>

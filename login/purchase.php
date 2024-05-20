@@ -30,7 +30,7 @@ if (isset($_SESSION['id'])) {
       order_item.start_date AS start_date,
       order_item.end_date AS end_date,
       order_item.status AS order_status,
-      (DATEDIFF(order_item.end_date, order_item.start_date)) * products.price * order_item.quantity AS subtotal
+      order_item.subtotal AS subtotal
     FROM 
       orders 
     JOIN 
@@ -144,14 +144,14 @@ if (isset($_SESSION['id'])) {
                           $total += $itemRow['subtotal'];
                           
               ?>
-              <tr>
-                <td><img src="../images/products/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
-                <td><?php echo $itemRow['product_name']; ?></td>
-                <td>x<?php echo $itemRow['order_quantity']; ?></td>
-                <td>₱<?php echo number_format($itemRow['product_price'], 2); ?></td>
-                <td>₱<?php echo number_format($itemRow['subtotal'], 2); ?></td>
-                <td><?php echo $itemRow['order_status']; ?></td>
-                <td>
+                <tr>
+                  <td><img src="../images/products/<?php echo $itemRow['product_image']; ?>" alt="Product Image"></td>
+                  <td><?php echo $itemRow['product_name']; ?></td>
+                  <td>x<?php echo $itemRow['order_quantity']; ?></td>
+                  <td>₱<?php echo number_format($itemRow['product_price'], 2); ?></td>
+                  <td>₱<?php echo number_format($itemRow['subtotal'], 2); ?></td>
+                  <td><?php echo $itemRow['order_status']; ?></td>
+                  <td>
                 <?php 
                 if ($itemRow['order_status'] == "Returned") {
                     echo "<a class='againbutton'  href='rate.php?product=" . urlencode($itemRow['product_name']) . "&name=" . urlencode($fullName) . "&email=" . urlencode($row['email']) . "'>Rate</a>";
@@ -165,34 +165,35 @@ if (isset($_SESSION['id'])) {
                       }
                   }
                   // Close the last order total row
-                  $laborFee = $total * 0.12;
-                  $overall_total = $total + $laborFee;
-                  echo "
-                  <tr>
-                    <td colspan='3'></td>
-                    <td colspan='1'></td>
-                    <td ><strong>Cart Total:</strong></td>
-                    <td>₱" . number_format($total, 2) . "</td>
-                    <td></td>
-                  </tr>";
-                  echo "
-                  <tr>
-                    <td colspan='3'></td>
-                    <td colspan='1'></td>
-                    <td ><strong>Labor Fee:</strong></td>
-                    <td>₱" . number_format($laborFee, 2) . "</td>
-                    <td></td>
-                  </tr>";
-                  echo "
-                  <tr style='background-color: #f3ffe3;'>
-                    <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
-                    <td colspan='1'></td>
-                    <td class='total'>Total:</td>
-                    <td>₱" . number_format($overall_total, 2) . "</td>
-                    <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
-                  </tr>";
-                  $total = 0; // Reset total for the next order
-              } else {
+                  if ($currentOrderId !== null) {
+                      $laborFee = $total * 0.12;
+                      $overall_total = $total + $laborFee;
+                      echo "
+                      <tr>
+                        <td colspan='3'></td>
+                        <td colspan='1'></td>
+                        <td ><strong>Cart Total:</strong></td>
+                        <td>₱" . number_format($total, 2) . "</td>
+                        <td></td>
+                      </tr>";
+                      echo "
+                      <tr>
+                        <td colspan='3'></td>
+                        <td colspan='1'></td>
+                        <td ><strong>Labor Fee:</strong></td>
+                        <td>₱" . number_format($laborFee, 2) . "</td>
+                        <td></td>
+                      </tr>";
+                      echo "
+                      <tr style='background-color: #f3ffe3;'>
+                        <td colspan='3'><strong>Order Date: " . $orderDate . "</strong></td>
+                        <td colspan='1'></td>
+                        <td class='total'>Total:</td>
+                        <td>₱" . number_format($overall_total, 2) . "</td>
+                        <td><button class='modal-button-confirm' onclick='downloadPDF()'>Print Invoice</button></td>
+                      </tr>";
+                  }    
+                } else {
                   echo "<tr><td colspan='7'>No orders found</td></tr>";
               }
               ?>

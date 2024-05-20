@@ -40,7 +40,7 @@ function fetchProducts($conn, $searchText = "", $categoryName = "", $sortOption 
             $sql .= " ORDER BY counter DESC";
             break;
         case 'top-rated':
-            $sql .= " ORDER BY total_ratings DESC";
+            $sql .= " ORDER BY total_ratings/counter DESC";
             break;
         case 'latest':
             $sql .= " ORDER BY id DESC";
