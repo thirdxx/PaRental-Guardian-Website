@@ -171,7 +171,6 @@ header {
 }
 .cards {
   display: flex;
-  justify-content: space-between;
   margin: 30px;
 }
 
@@ -181,17 +180,26 @@ header {
   padding: 20px;
   border-radius: 8px;
   height: 280px;
-}
-.card-img {
-  border-radius: 10px;
+  margin-right: 10px;
 }
 
-.card h3 {
-  margin-top: 0;
+.card:last-child {
+  margin-right: 0;
+}
+
+.card-img {
+  border-radius: 10px;
+  height: 160px;
+}
+
+.card h4 {
+  margin-top: -5px;
+  margin-bottom: 5px;
 }
 
 .card p {
-  margin-top: -25px;
+  margin-top: -5px;
+  margin-bottom: 5px;
 }
 
 /* .card a {
@@ -352,6 +360,14 @@ main {
   text-align: center;
   margin-top: -20px;
   margin-bottom: 10px;
+}
+
+.banner h3 {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 100px;
 }
 
 .banner p {

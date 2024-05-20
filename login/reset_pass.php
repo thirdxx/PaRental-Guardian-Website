@@ -1,0 +1,74 @@
+<?php
+session_start();
+include "../components/db_connect.php";
+date_default_timezone_set("Asia/Manila");
+
+$error_message = "";
+$success_message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    if ($new_password !== $confirm_password) {
+        $error_message = "Passwords did not match.";
+    } else {
+        if (!preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/', $new_password)) {
+            $error_message = "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.";
+        } else {
+            if (isset($_SESSION['email_phone'])) {
+                $email_phone = $_SESSION['email_phone'];
+                // Generate a salt
+                $salt = base64_encode(random_bytes(32));
+                $hashedPassword = password_hash($new_password . $salt, PASSWORD_DEFAULT);
+                $sql = "UPDATE users SET password = ?, password_salt = ? WHERE email = ? OR phone_number = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ssss", $hashedPassword, $salt, $email_phone, $email_phone);
+                $stmt->execute();
+
+                if ($stmt->affected_rows > 0) {
+                    $success_message = "Password reset successfully. Please sign in with your new password.";
+                    header("Location: signin.php");
+                    exit();
+                } else {
+                    $error_message = "No account found with the provided email or phone number. Please try again.";
+                }
+            } else {
+                $error_message = "No email or phone number provided. Please try again.";
+            }
+        }
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reset Password</title>
+  <link rel="stylesheet" type="text/css" href="../css/pass_recovery.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2>Reset Password</h2><hr>
+      <p>Please enter your new password and confirm password.</p>
+      
+      <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <input type="password" id="new_password" name="new_password" placeholder="New Password" required><br><br>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required><br><br>
+        <span id="password-requirements" class="password-requirements"></span>
+        <span style="color: red;"><?php echo $error_message; ?></span>
+        <span style="color: green;"><?php echo $success_message; ?></span><br><br>
+        <button type="button" onclick="back()">Back</button>
+        <input type="submit" value="Reset Password">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function back() {
+      window.location.href = "pass_recovery.php"; 
+    }
+  </script>
+</body>
+</html>
